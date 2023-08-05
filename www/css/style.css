@@ -1,0 +1,62 @@
+:root {
+    --background: white;
+    --border-color: gray;
+}
+
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+
+}
+
+#card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: inline-block;
+    text-align: center;
+
+    background-color: var(--background);
+    
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+
+    border-radius: 20px;
+    border: 2px solid var(--border-color);
+
+    transition: transform .2s;
+
+}
+
+.basic:hover {
+    transform: scale(1.2);
+}
+
+.zoom-card {
+    position: relative;
+    z-index: 11;
+
+}
+
+#veil {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(35, 35, 35, 0.45);
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+}

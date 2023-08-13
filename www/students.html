@@ -11,6 +11,21 @@
     <div id="card-container">
 
     </div>
+    <div id="main" class="card" style="display: none;">
+        <div class="top-part">
+            <img id="main-img" class="card-img"/>
+            <h3 id="main-name"></h3>
+            <a href="custom.html"><button>Edit student</button></a>
+        </div>
+        <div>
+            <span>Material: </span>
+            <select id="main-select-materials">
+
+            </select><br>
+            <span id="main-material-quantity">--</span>
+            <button id="add-one">+1</button>
+        </div>
+    </div>
     <div id="veil" style="display: none;" onclick="restore(getZoomedElement().id)"></div>
 </body>
 </html>

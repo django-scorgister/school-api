@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpExchange;
 import net.argus.cjson.CJSON;
 import net.argus.school.api.Material;
 import net.argus.school.api.Materials;
+import net.argus.school.api.Quantities;
 import net.argus.school.api.http.APIHandler;
 import net.argus.school.api.http.pack.PackagePrefab;
 
@@ -27,13 +28,16 @@ public class APIMaterialHandler extends APIHandler {
 
 		switch(parameters.getString("action").toLowerCase()) {
 			case "get":
-				Material mat = Materials.getMaterial(parameters.getInt("id"));
+				int id = parameters.getInt("id");
+				Material mat = Materials.getMaterial(id);
 				if(mat == null) {
 					send404(exchange);
 					break;
 				}
 				
-				send(exchange, PackagePrefab.getMaterialPAckage(mat));
+				mat.setBaseQuantity(Quantities.getBaseQuantity(id));
+				
+				send(exchange, PackagePrefab.getMaterialPackage(mat));
 				break;
 		}
 	}

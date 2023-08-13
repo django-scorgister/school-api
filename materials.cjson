@@ -1,1 +1,12 @@
-{"materials": [{"name": "Stylo", "quantity": 100, "id": 898757376}, {"name": "Règle", "quantity": 20, "id": -1950829253}]}
+{
+    "materials": [
+        {
+            "name": "Stylo",
+            "id": 898757376
+        },
+        {
+            "name": "Règle",
+            "id": -1950829253
+        }
+    ]
+}

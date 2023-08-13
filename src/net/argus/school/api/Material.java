@@ -3,12 +3,17 @@ package net.argus.school.api;
 public class Material {
 	
 	private String name;
-	private int id, quantity;
+	private int id, baseQuantity;
 	
-	public Material(String name, int id, int quantity) {
+	public Material(String name, int id, int baseQuantity) {
 		this.name = name;
-		this.id =id;
-		this.quantity = quantity;
+		this.id = id;
+		this.baseQuantity = baseQuantity;
+	}
+	
+	public Material(String name, int id) {
+		this.name = name;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -18,9 +23,13 @@ public class Material {
 	public int getId() {
 		return id;
 	}
-
-	public int getQuantity() {
-		return quantity;
+	
+	public void setBaseQuantity(int baseQuantity) {
+		this.baseQuantity = baseQuantity;
+	}
+	
+	public int getBaseQuantity() {
+		return baseQuantity;
 	}
 
 }

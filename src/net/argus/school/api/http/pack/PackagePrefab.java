@@ -45,15 +45,21 @@ public class PackagePrefab {
 		return PackageBuilder.getSucessPackage(obj);
 	}
 	
-	public static APIPackage getMaterialPAckage(Material material) {
+	public static APIPackage getMaterialPackage(Material material) {
 		if(material == null)
 			return null;
 		
 		CJSONObject obj = new CJSONObject();
 		
 		obj.addItem("name", new CJSONString(material.getName()));
-		obj.addItem("id", new CJSONInteger(material.getId()));
-		obj.addItem("quantity", new CJSONInteger(material.getQuantity()));
+		obj.addItem("base_quantity", new CJSONInteger(material.getBaseQuantity()));
+		return PackageBuilder.getSucessPackage(obj);
+	}
+	
+	public static APIPackage getUserQuantityPackage(int quantity) {
+		CJSONObject obj = new CJSONObject();
+		
+		obj.addItem("quantity", new CJSONInteger(quantity));
 		return PackageBuilder.getSucessPackage(obj);
 	}
 

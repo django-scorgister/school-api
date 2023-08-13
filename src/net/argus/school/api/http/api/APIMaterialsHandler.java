@@ -26,7 +26,7 @@ public class APIMaterialsHandler extends APIHandler {
 
 		switch(parameters.getString("action").toLowerCase()) {
 			case "add":
-				Materials.addMaterials(parameters.getString("name"), parameters.getInt("quantity"));
+				Materials.addMaterials(parameters.getString("name"), parameters.getInt("base_quantity"));
 				sendEmptyPackage(exchange);
 				break;
 				

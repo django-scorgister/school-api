@@ -1,20 +1,20 @@
 const DIV_CONTAINER = document.getElementById("card-container");
 
-function load(apiPath, arrayName, customCard) {
+function load(apiPath, arrayName) {
     var resFunc = function(success, obj) {
         if(!success)
             return;
 
         var sts = obj['result'][arrayName];
         for(var i = 0; i < sts.length; i++) {
-            addCard(sts[i], customCard);
+            addCard(sts[i]);
         }
     };
 
     sendGet(apiPath, resFunc);
 }
 
-function addCard(cardObj, customCard) {
+function addCard(cardObj) {
     var div = document.createElement("div");
     div.setAttribute("id", cardObj['id']);
     div.setAttribute("class", "card basic");
@@ -30,8 +30,6 @@ function addCard(cardObj, customCard) {
 
     div.appendChild(img);
     div.appendChild(h3);
-
-    customCard(div);
-
+    
     DIV_CONTAINER.appendChild(div);
 }

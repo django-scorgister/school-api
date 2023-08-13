@@ -1,6 +1,7 @@
 package net.argus.school.api.http;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import com.sun.net.httpserver.HttpExchange;
 
@@ -18,7 +19,7 @@ public abstract class APIHandler extends CardinalHandler {
 		String lines = "";
 		int i = 0;
 		while((i = exchange.getRequestBody().read()) != -1)
-			lines += (char) i;
+			lines += new String(new byte[] {(byte) i}, StandardCharsets.UTF_8);
 		return lines;
 	}
 	

@@ -1,9 +1,11 @@
-load("/api/students", "students", customCard);
+load("/api/students", "students");
 
 function onClickCard(id) {
     var card = document.getElementById(id);
     card.setAttribute("class", "card zoom-card");
     document.getElementById("veil").style = "";
+    document.getElementById("main").style = "";
+    loadMainCard(id);
     centerElement(id);
 
 }
@@ -12,17 +14,14 @@ function restore(id) {
     var card = document.getElementById(id);
     card.setAttribute("class", "card basic");
     card.style.transform = "";
-    card.getElementsByClassName("info")[0].style = "display: none;";
 
     document.getElementById("veil").style = "display: none;";
+    document.getElementById("main").style = "display: none;";
 }
 
 function centerElement(id) {
 
     const centeredElement = document.getElementById(id);
-
-    centeredElement.children[2].style = "display: block;";
-
 
     const windowWidth = window.visualViewport.width;
     const windowHeight = window.visualViewport.height;
@@ -53,8 +52,7 @@ function customCard(div) {
 
     var select = document.createElement("select");
     select.setAttribute("class", "select-material");
-    select.addEventListener("change", selectChange);
-    
+  
     var quantity = document.createElement("p");
     quantity.setAttribute("class", "quantity")
 
@@ -80,8 +78,26 @@ function customCard(div) {
 
 function selectChange(event) {
     var id = event.target.value;
-    sendPost("/api/material", `{"action": "get", "id": ${id}}`, (xhr, response) => {
-        getZoomedElement().getElementsByClassName("quantity")[0].innerText = response['result']['quantity'];
+    var uid = getZoomedElement().id;
+
+    displayQuantity(id, uid);
+}
+
+function displayQuantity(id, uid) {
+    document.getElementById("main-material-quantity").innerText = "--";
+
+    sendPost("/api/quantity", `{"action": "get", "id": ${id}, "user_id": ${uid}}`, (xhr, response) => {
+        document.getElementById("main-material-quantity").innerText = response['result']['quantity'];
+    });
+}
+
+function addOne(event) {
+    var id = document.getElementById("main-select-materials").value;
+    var uid = getZoomedElement().id;
+    
+    sendPost("/api/quantity", `{"action": "add", "id": ${id}, "user_id": ${uid}, "quantity": 1}`, (xhr, response) => {
+        var o = document.getElementById("main-material-quantity");
+        o.innerText = parseInt(o.innerText) + 1;
     });
 }
 
@@ -89,4 +105,38 @@ function getZoomedElement() {
     var docs = document.getElementsByClassName("zoom-card");
     if(docs.length > 0)
         return docs[0];
+}
+
+function loadMainCard(id) {
+    var card = document.getElementById(id);
+    document.getElementById("main-img").src = card.children[0].src;
+
+    document.getElementById("main-name").innerText = card.children[1].innerText;
+
+    var sel =  document.getElementById("main-select-materials");
+
+    sel.innerHTML = "";
+
+    sel.onchange = selectChange;
+
+    document.getElementById("add-one").onclick = addOne;
+
+    document.getElementById("main-material-quantity").innerText = "--";
+     
+
+    sendGet("/api/materials", (xhr, response) => {
+        var mats = response["result"]["materials"];
+        for(var i = 0; i < mats.length; i++) {
+            var op = document.createElement("option");
+            op.setAttribute("value", mats[i]["id"]);
+            op.innerText = mats[i]["name"];
+            sel.appendChild(op);
+        }
+
+        displayQuantity(sel.options[sel.selectedIndex].value, id);
+    });
+
+    
+
+
 }

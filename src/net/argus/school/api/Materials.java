@@ -27,12 +27,14 @@ public class Materials {
 		return MATERIALS.getValue("materials");
 	}
 	
-	public synchronized static void addMaterials(String name, int quantity) throws IOException {
+	public synchronized static void addMaterials(String name, int baseQuantity) throws IOException {
+		int id = ID_REGISTER.genId();
+		Quantities.addMaterial(id, baseQuantity);
+		
 		CJSONObject obj = new CJSONObject();
 
 		obj.addItem("name", new CJSONString(name));
-		obj.addItem("quantity", new CJSONInteger(quantity));
-		obj.addItem("id", new CJSONInteger(ID_REGISTER.genId()));
+		obj.addItem("id", new CJSONInteger(id));
 		
 		MATERIALS.getArray("materials").addValue(obj);
 
@@ -44,7 +46,7 @@ public class Materials {
 		for(CJSONValue val : array.getArray()) {
 			CJSONObject obj = (CJSONObject) val;
 			if(obj.getInt("id") == id)
-				return new Material(obj.getString("name"), id, obj.getInt("quantity"));
+				return new Material(obj.getString("name"), id);
 		}
 		return null;
 	}

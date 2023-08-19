@@ -61,7 +61,10 @@ public abstract class CardinalHandler implements HttpHandler {
 	
 	public void send404(HttpExchange exchange) throws IOException {
 		send(exchange, PackagePrefab.get404Package());
-
+	}
+	
+	public void send500(HttpExchange exchange) throws IOException {
+		send(exchange, PackagePrefab.get500Package());
 	}
 		
 	public String getContentType(String fileName) {

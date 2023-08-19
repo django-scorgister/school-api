@@ -31,6 +31,16 @@ function sendGet(url, response = function() {}) {
     xhr.send();
 }
 
+function sendPostFormData(url, formData, response = function() {}) {
+    var xhr = createXMLHttpRequest("POST", url);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader("Cookies", document.cookie);
+
+    xhr.onreadystatechange = function() {
+        result(xhr, response);
+    };
+    xhr.send(formData);
+}
 
 function result(xhr, response) {
     if(xhr.readyState === 4) {

@@ -81,6 +81,83 @@ public class CardinalFileNameMap implements FileNameMap {
 	public static final String THREE_GPP_2= "3g2";
 	public static final String SEVEN_ZIP = "7z";
 
+	
+	public static String getExtentionByMimeType(String contentType) {
+		switch(contentType.toLowerCase()) {
+			case "audio/acc": return AAC_AUDIO;
+	        case "application/x-abiword": return ABI_WORD_DOCUMENT;
+	        case "application/x-freearc": return ARCHIVE_DOCUMENT;
+	        case "image/avif": return AVIF_IMAGE;
+	        case "image/x-msvideo": return AUDIO_VIDEO_INTERFACE;
+	        case "application/vnd.amazon.ebook": return AMAZON_KINDLE_EBOOK_FORMAT;
+	        case "application/octet-stream": return BIN;
+	        case "image/bmp": return BITMAP_GRAPHICS;
+	        case "application/x-bzip": return BZIP_ARCHIVE;
+	        case "application/x-bzip2": return BZIP2_ARCHVE;
+	        case "application/x-cdf": return CD_AUDIO;
+	        case "application/x-csh": return C_SHELL_SCRIPT;
+	        case "text/css": return CASCADING_STYLE_SHEET;
+	        case "text/csv": return COMMA_SEPARATED_VALUES;
+	        case "application/msword": return MICROSOFT_WORD;
+	        case "application/vnd.openformats-officedocument.wordprocessingml.document": return MICROSOFT_WORD_OPEN_XML;
+	        case "application/vnd.ms-fontobject": return MS_EMBEDDED_OPEN_TYPE_FONTS;
+	        case "application/epu+zip": return ELECTRONIC_PUBLICATION;
+	        case "application/gzip": return GZIP_COMPRESSED_ARCHIVE;
+	        case "image/gif": return GRAPHICS_INTERCHANGE_FORMAT;
+	        case "text/html": return HYPER_TEXT_MARKUP_LANGUAGE;
+	        case "image/vnd.microsoft.icon": return ICON_FORMAT;
+	        case "text/calendar": return ICALENDAR_FORMAT;
+	        case "application/java-archive": return JAVA_ARCHIVE;
+	        case "image/jpeg": return JPEG_IMAGES;
+	        case "text/javascript": return JAVA_SCRIPT;
+	        case "application/json": return JSON_FORAT;
+	        case "application/ld+json": return JSON_LD_FORMAT;
+	        case "audio/midi": return MUSICAL_INSTRUMENT_DIGITAL;
+	        case "audio/mpeg": return MP3_AUDIO;
+	        case "video/mp4": return MP4_VIDEO;
+	        case "video/mpeg": return MPEG_VIDEO;
+	        case "application/vnd.apple.installer+xml": return APPLE_INTALLER_PACKAGE;
+	        case "application/vnd.oasis.opendocument.spreadsheet": return OPEN_DOCUMENT_SPREADSHEET_DOCUMENT;
+	        case "application/vnd.oasis.opendocument.text": return OPEN_DOCUMENT_TEXT_DOCUMENT;
+	        case "audio/ogg": return OGG_AUDIO;
+	        case "video/ogg": return OGG_VIDEO;
+	        case "application/ogg": return OGG;
+	        case "audio/opus": return OPUS_AUDIO;
+	        case "font/otf": return OPEN_TYPE_FONT;
+	        case "image/png": return PORTABLE_NETWORK_GRAPHICS;
+	        case "application/pdf": return ADOBE_PORTABLE_DOCUMENT_FORMAT;
+	        case "application/x-httpd-php": return HYPERTEXT_PREPROCESSOR;
+	        case "application/vnd.ms-powerpoint": return MICROSOFT_POWER_POINT;
+	        case "application/vnd.openxmlformats-officedocument.presentationml.presentation": return MICROSOFT_POWER_POINT_OPEN_XML;
+	        case "application/vnd.rar": return RAR_ARCHIVE;
+	        case "application/rtf": return RICH_TEXT_FORMAT;
+	        case "application/x-sh": return BOURNE_SHELL_SCRIPT;
+	        case "image/svg+xml": return SCALABLE_VECTOR_GRAPHICS;
+	        case "application/x-tar": return TAPE_ARCHIVE;
+	        case "image/tiff": return TAGGED_IMAGE_FILE_FORMAT;
+	        case "video/mp2t": return MPEG_TRANSPORT_STREAM;
+	        case "font/ttf": return TRUE_TYPE_FONT;
+	        case "text/plain": return TEXT;
+	        case "application/vnd.visio": return MICROSOFT_VISIO;
+	        case "audio/wav": return WAVEFORM_AUDIO_FORMAT;
+	        case "audio/webm": return WEBM_AUDIO;
+	        case "video/webm": return WEBM_VIDEO;
+	        case "image/webp": return WEBM_IMAGE;
+	        case "font/woff": return WEB_OPEN_FONT_FORMAT;
+	        case "font/woff2": return WEB_OPEN_FONT_FORMAT_2;
+	        case "application/xhtml+xml": return XHTML;
+	        case "application/vnd.ms-excel": return MICROSOFT_EXCEL;
+	        case "application/vnd.openxmlformats-officedocument.spreadshettml.sheet": return MICROSOFT_EXCEL_OPEN_XML;
+	        case "application/xml": return XML;
+	        case "application/vnd.mozilla.xul+xml": return XUL;
+	        case "application/zip": return ZIP_ARCHIVE;
+	        case "video/3gpp": return THREE_GPP;
+	        case "video/3gpp2": return THREE_GPP_2;
+	        case "application/x-7z-compressed": return SEVEN_ZIP;
+	        default: return TEXT;
+		}
+	}
+	
 	@Override
 	public String getContentTypeFor(String fileName) {
 		switch(fileName.substring(fileName.lastIndexOf(".")+1, fileName.length())) {

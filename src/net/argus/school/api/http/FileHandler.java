@@ -46,12 +46,16 @@ public class FileHandler extends CardinalHandler {
 	
 	@Override
 	public void send404(HttpExchange exchange) throws IOException {
-		sendFile(exchange, new File(base + "404.html"));
+		sendFile(exchange, new File(base + "404.html"), HttpURLConnection.HTTP_NOT_FOUND);
 	}
 	
 	public void sendFile(HttpExchange exchange, File file) throws IOException {
+		sendFile(exchange, file, HttpURLConnection.HTTP_OK);
+	}
+	
+	public void sendFile(HttpExchange exchange, File file, int code) throws IOException {
 		exchange.getResponseHeaders().set("Content-Type", getContentType(file.getName()));
-		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, file.length());
+		exchange.sendResponseHeaders(code, file.length());
 		exchange.getResponseBody().write(Files.readAllBytes(file.toPath()));
 		exchange.close();
 	}

@@ -1,4 +1,4 @@
-load("/api/materials", "materials", customCard)
+load("/api/materials", "materials", "images/material");
 
 function onClickCard(id) {
 

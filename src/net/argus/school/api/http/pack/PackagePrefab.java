@@ -20,6 +20,10 @@ public class PackagePrefab {
 		return PackageBuilder.getErrorPackage("Method Not Allowed", "405 method not allowed", HttpURLConnection.HTTP_BAD_METHOD);
 	}
 	
+	public static APIPackage get500Package() {
+		return PackageBuilder.getErrorPackage("Internal Server Error", "500 internal server error", HttpURLConnection.HTTP_INTERNAL_ERROR);
+	}
+	
 	public static APIPackage getEmptyPackage() {
 		return PackageBuilder.getSucessPackage(new CJSONObject());
 	}
@@ -60,6 +64,13 @@ public class PackagePrefab {
 		CJSONObject obj = new CJSONObject();
 		
 		obj.addItem("quantity", new CJSONInteger(quantity));
+		return PackageBuilder.getSucessPackage(obj);
+	}
+	
+	public static APIPackage getStudentPackage(String name) {
+		CJSONObject obj = new CJSONObject();
+		
+		obj.addItem("name", new CJSONString(name));
 		return PackageBuilder.getSucessPackage(obj);
 	}
 

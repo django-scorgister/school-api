@@ -1,4 +1,4 @@
-load("/api/students", "students");
+load("/api/students", "students", "images/student");
 
 function onClickCard(id) {
     var card = document.getElementById(id);
@@ -116,12 +116,12 @@ function loadMainCard(id) {
     var sel =  document.getElementById("main-select-materials");
 
     sel.innerHTML = "";
-
     sel.onchange = selectChange;
 
     document.getElementById("add-one").onclick = addOne;
-
     document.getElementById("main-material-quantity").innerText = "--";
+
+    document.getElementById("main-custom").href = "custom.html?id=" + id;
      
 
     sendGet("/api/materials", (xhr, response) => {

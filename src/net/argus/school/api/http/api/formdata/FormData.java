@@ -20,6 +20,10 @@ public class FormData {
 		return map.get(key);
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	public static FormData parse(String arg) {
 		if(!arg.startsWith("form-data"))
 			return null;

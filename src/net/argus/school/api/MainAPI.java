@@ -12,7 +12,7 @@ import net.argus.school.api.http.api.APIMaterialHandler;
 import net.argus.school.api.http.api.APIMaterialsHandler;
 import net.argus.school.api.http.api.APIQuantityHandler;
 import net.argus.school.api.http.api.APIStudentsHandler;
-import net.argus.school.api.http.api.APITestHandler;
+import net.argus.school.api.http.api.APIUploadStudentHandler;
 import net.argus.school.api.http.api.APIVersionHandler;
 import net.argus.util.Version;
 
@@ -24,7 +24,7 @@ public class MainAPI {
 		APIServer srv = new APIServer();
 		
 		srv.addHandle(new APIVersionHandler());
-		srv.addHandle(new APITestHandler());
+		srv.addHandle(new APIUploadStudentHandler());
 		
 		srv.addHandle(new APIStudentsHandler());
 		srv.addHandle(new APIMaterialsHandler());

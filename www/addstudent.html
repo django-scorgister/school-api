@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script text="text/javascript" src="js/cardinal.js"></script>
+    <title>Add Student</title>
+</head>
+<body>
+    <input id="student-name" name="name" type="text" placeholder="Student name">
+    <input value="Add" id="submit" type="submit">
+</body>
+<script lang="javascript">
+
+    var sname = document.getElementById("student-name");
+
+    document.getElementById("submit").onclick = () => {
+    sendPost("/api/students", '{"action": "add", "name": "' + sname.value + '""}', (success, response) => {
+        window.location  = "students.html";
+    });
+   };
+
+</script>
+</html>

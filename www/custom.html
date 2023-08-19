@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom</title>
+    <script lang="javascript" src="js/cardinal.js"></script>
+    <style>
+        .upfile-parent {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            filter : blur(0px);
+        }
+
+        .upfile-parent:hover {
+            transition: 0.3s;
+            filter : blur(1.5px);
+        }
+
+        .upfile-parent input[type=file] {
+            left: 0;
+            top: 0;
+            opacity: 0;
+            position: absolute;
+            font-size: 90px;
+        }
+
+        #student-img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="upfile-parent">
+            <img id="student-img" src="images/tomcat.gif" onerror="this.src='images/tomcat.gif'">
+            <input id="file-selector" type="file" accept="image/jpeg" onchange="imageChange(this)">
+        </div>
+        <p>cliqer sur l'image pour éditer</p>
+        <span id="name"></span>
+        <button id="edit-name" onclick="editName(this)">éditer le nom</button>
+        <button onclick="valid()">Valider</button>
+    </div>
+    
+</body>
+<script lang="javascript" src="js/custom.js"></script>
+</html>

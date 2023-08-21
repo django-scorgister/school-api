@@ -12,8 +12,8 @@ public class FileHandler extends CardinalHandler {
 
 	private String base;
 	
-	public FileHandler(String defaultRep) {
-		super("/school/", false);
+	public FileHandler(String handle, String defaultRep) {
+		super(handle, false);
 		base = defaultRep;
 	}
 	

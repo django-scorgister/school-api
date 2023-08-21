@@ -8,10 +8,38 @@
     <script text="text/javascript" src="js/cardinal.js"></script>
 </head>
 <body>
+    <header class="main-header">
+        <a href="index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="images/icon.png"></a>
+        <div class="header-body">
+            <a href="addmaterial.html"><button>Add material</button></a>
+        </div>
+    </header>
     <div id="card-container">
         
     </div>
+    <div id="main" class="card" style="display: none;">
+        <div class="top-part">
+            <img id="main-img" class="card-img"/>
+            <h3 id="main-name"></h3>
+            <a id="main-custom" href="custommat.html"><button>Edit material</button></a>
+        </div>
+        <div>
+            <input id="stock-input" type="number" min="0" placeholder="Addition to stock" hidden>
+            <button onclick="addStock()">Add stock</button>
+            <br><br>
+            <span>Remaining quantity: </span>
+            <span id="remaining-quantity">--</span><br>
+            <span>Used quantity: </span>
+            <span id="used-quantity">--</span><br>
+            <select id="main-select-students">
+
+            </select><br>
+            <span id="main-material-quantity">--</span>
+        </div>
+    </div>
+    <div id="veil" style="display: none;" onclick="restore(getZoomedElement().id)"></div>
 </body>
 </html>
 <script text="text/javascript" src="js/loader.js"></script>
 <script text="text/javascript" src="js/materials.js"></script>
+<script text="text/javascript" src="js/main-card.js"></script>

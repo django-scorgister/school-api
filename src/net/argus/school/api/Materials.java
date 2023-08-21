@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.argus.cjson.Array;
 import net.argus.cjson.CJSON;
+import net.argus.cjson.CJSONItem;
 import net.argus.cjson.CJSONParser;
 import net.argus.cjson.value.CJSONInteger;
 import net.argus.cjson.value.CJSONObject;
@@ -49,6 +50,27 @@ public class Materials {
 				return new Material(obj.getString("name"), id);
 		}
 		return null;
+	}
+	
+	public synchronized static boolean updateMaterialsName(int id, String name) throws IOException {
+		Array array = MATERIALS.getArray("materials");
+		for(CJSONValue val : array.getArray()) {
+			CJSONObject obj = (CJSONObject) val;
+			if(obj.getInt("id") == id) {
+				List<CJSONItem> items = obj.getValue();
+				int index = -1;
+				for(CJSONItem item : items) {
+					index ++;
+					if(item.getName().equals("name"))
+						break;
+				}
+				items.set(index, new CJSONItem("name", new CJSONString(name)));
+				
+				writeFile();
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public synchronized static boolean removeMaterial(int id) throws IOException {

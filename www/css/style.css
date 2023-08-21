@@ -1,6 +1,11 @@
 :root {
     --background: white;
     --border-color: gray;
+    --header-background: rgb(100, 100, 100);
+    --main-color: #5dc3f5;
+    --main-color-darkest: #3e75e6;
+
+    --transition-time: 0.4s;
 }
 
 html {
@@ -9,13 +14,14 @@ html {
 
 body {
     overflow-x: hidden;
-
+    margin: 0px;
 }
 
 #card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: 10px;
 }
 
 .card {
@@ -49,7 +55,7 @@ body {
 .zoom-card {
     position: relative;
     z-index: 11;
-    animation: fade 0.3s forwards;
+    animation: fadeOut 0.4s forwards;
 }
 
 .img-card {
@@ -58,7 +64,7 @@ body {
 }
 
 
-@keyframes fade { 
+@keyframes fadeOut { 
     0% {
       opacity: 1;
     }
@@ -66,7 +72,17 @@ body {
     100% {
       opacity: 0;
     }
-  }
+}
+
+@keyframes fadeIn { 
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+}
 
 #veil {
     position: fixed;
@@ -87,6 +103,7 @@ body {
     margin-left: 20%;
     width: 60%;
     height: 70%;
+    animation: fadeIn 0.3s forwards;
 
 }
 
@@ -105,4 +122,67 @@ body {
     border-right: 0px;
     border-radius: 3px;
     border-style: solid;
+}
+
+.main-header {
+    height: 80px;
+    background-color: var(--header-background);
+    display: flex;
+}
+
+#header-icon {
+    transition: var(--transition-time);
+    height: 60px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+#header-icon:hover {
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px var(--main-color-darkest);
+}
+
+.header-body {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+}
+
+button, input[type=submit] {
+    transition: var(--transition-time);
+
+    background-color: var(--main-color);
+    border-radius: 9px;
+    border-color: var(--border-color);
+    border-style: solid;
+    border: 0px;
+    box-shadow: 0px 0px 30px var(--main-color);
+
+    color: rgb(60, 60, 60);
+
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+
+    font-weight: bold;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+button:hover, input[type=submit]:hover {
+    background-color: var(--main-color-darkest);
+    box-shadow: 0px 0px 30px var(--main-color-darkest);
+
+    color: white;
+
+}
+
+.error {
+    color: red;
 }

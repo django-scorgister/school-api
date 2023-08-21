@@ -8,7 +8,6 @@ import net.argus.cjson.value.CJSONString;
 import net.argus.school.api.Material;
 import net.argus.school.api.Materials;
 import net.argus.school.api.Students;
-import net.argus.util.Version;
 
 public class PackagePrefab {
 	
@@ -28,10 +27,10 @@ public class PackagePrefab {
 		return PackageBuilder.getSucessPackage(new CJSONObject());
 	}
 	
-	public static APIPackage getVersionPackage(Version version) {
+	public static APIPackage getVersionPackage(String version) {
 		CJSONObject obj = new CJSONObject();
 		
-		obj.addItem("version", new CJSONString(version.getVersion()));
+		obj.addItem("version", new CJSONString(version));
 		return PackageBuilder.getSucessPackage(obj);
 	}
 	
@@ -60,7 +59,7 @@ public class PackagePrefab {
 		return PackageBuilder.getSucessPackage(obj);
 	}
 	
-	public static APIPackage getUserQuantityPackage(int quantity) {
+	public static APIPackage getQuantityPackage(int quantity) {
 		CJSONObject obj = new CJSONObject();
 		
 		obj.addItem("quantity", new CJSONInteger(quantity));
@@ -68,6 +67,13 @@ public class PackagePrefab {
 	}
 	
 	public static APIPackage getStudentPackage(String name) {
+		CJSONObject obj = new CJSONObject();
+		
+		obj.addItem("name", new CJSONString(name));
+		return PackageBuilder.getSucessPackage(obj);
+	}
+	
+	public static APIPackage getMaterialPackage(String name) {
 		CJSONObject obj = new CJSONObject();
 		
 		obj.addItem("name", new CJSONString(name));

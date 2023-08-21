@@ -23,6 +23,22 @@ public class Quantities {
 	public static CJSONObject getMainObject() {
 		return QUANTITIES.getMainObject();
 	}
+	
+	public static int getQuantity(int id) throws IOException {
+		CJSONObject obj = Quantities.getObject(id);
+		if(obj == null)
+			return -1;
+		
+		int base = obj.getInt("base");
+		
+		for(CJSONItem items : obj.getValue()) {
+			if(items.getName().equals("base"))
+				continue;
+			
+			base -= items.getValue().getInt();
+		}
+		return base;
+	}
 
 	public static void addMaterial(int id, int baseQuantity) throws IOException {
 		CJSONObject obj = new CJSONObject();
@@ -33,7 +49,7 @@ public class Quantities {
 		writeFile();
 	}
 	
-	public static void addStudentCount(int id, int uid, int add) throws IOException {
+	public static boolean addStudentCount(int id, int uid, int add) throws IOException {
 		CJSONObject obj = getMainObject().getObject(Integer.toString(id));
 		
 		CJSONValue val = null;
@@ -41,6 +57,7 @@ public class Quantities {
 			obj.addItem(Integer.toString(uid), new CJSONInteger(add));
 		else {
 			int c = val.getInt() + add;
+			
 			List<CJSONItem> items = obj.getValue();
 
 			for(int i = 0; i < items.size(); i++) {
@@ -51,6 +68,20 @@ public class Quantities {
 				}
 			}
 		}
+		
+		writeFile();
+		return true;
+	}
+	
+	public static void addCount(int id, int add) throws IOException {
+		CJSONObject obj = getMainObject().getObject(Integer.toString(id));
+		
+		List<CJSONItem> items = obj.getValue();
+		for(int i = 0; i < items.size(); i++)
+			if(items.get(i).getName().equals("base")) {
+				items.set(i, new CJSONItem("base", new CJSONInteger(items.get(i).getValue().getInt() + add)));
+				break;
+			}
 		
 		writeFile();
 	}

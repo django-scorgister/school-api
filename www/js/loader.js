@@ -24,7 +24,7 @@ function addCard(cardObj, imgPath) {
     img.setAttribute("class", "card-img");
 
     img.setAttribute("src", imgPath + "/" + cardObj['id'] + ".jpeg");
-    img.setAttribute("onerror", "this.src='images/tomcat.gif'")
+    img.setAttribute("onerror", "this.src='" + imgPath + "/default.png'")
     img.setAttribute("class", "img-card")
 
     var h3 = document.createElement("h3");

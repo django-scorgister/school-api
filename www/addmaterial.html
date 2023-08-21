@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script text="text/javascript" src="js/cardinal.js"></script>
+    <title>Add Student</title>
+</head>
+<body>
+    <input id="material-name" name="name" type="text" placeholder="Material name">
+    <input id="material-quantity" name="base_quantity" type="number" value="0" min="0" placeholder="Base quantity">
+    <input value="Add" id="submit" type="submit">
+</body>
+<script lang="javascript">
+
+    var mname = document.getElementById("material-name");
+    var mquantity = document.getElementById("material-quantity");
+    
+    document.getElementById("submit").onclick = () => {
+        console.log(mname.value);
+        if(mname.value == null || mname.value == "" || mname.value == undefined) {
+            alert("aucun nom renseigné");
+        }else if(mquantity.value < 0) {
+            alert("quantité négative");
+            mquantity.value = mquantity.value*-1;
+        }else 
+            sendPost("/api/materials", '{"action": "add", "name": "' + mname.value + '", "base_quantity": ' + mquantity.value + '}', (success, response) => {
+                window.location  = "materials.html";
+            });
+   };
+
+</script>
+</html>

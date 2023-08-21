@@ -25,10 +25,25 @@ public class APIMaterialsHandler extends APIHandler {
 		CJSON parameters = getCJSONParameters(exchange);
 
 		switch(parameters.getString("action").toLowerCase()) {
+			case "get":
+				String name = Materials.getMaterial(parameters.getInt("id")).getName();
+				send(exchange, PackagePrefab.getMaterialPackage(name));
+				break;
+				
 			case "add":
 				Materials.addMaterials(parameters.getString("name"), parameters.getInt("base_quantity"));
 				sendEmptyPackage(exchange);
 				break;
+				
+			case "update":
+				int id = parameters.getInt("id");
+				String newName = parameters.getString("name");
+				boolean success = Materials.updateMaterialsName(id, newName);
+				
+				if(success) sendEmptyPackage(exchange);
+				else send500(exchange);
+				break;
+				
 				
 			case "remove":
 				Materials.removeMaterial(parameters.getInt("id"));

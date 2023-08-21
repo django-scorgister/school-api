@@ -1,8 +1,8 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-document.getElementById("student-img").src = "images/student/" + id + ".jpeg";
-sendPost("/api/students", '{"action": "get", "id": ' + id + '}', (success, response) => {
+document.getElementById("custom-img").src = defualtImgPath + id + ".jpeg";
+sendPost(apiNamePath, '{"action": "get", "id": ' + id + '}', (success, response) => {
     document.getElementById("name").innerText = response['result']["name"];
 });
 
@@ -11,7 +11,7 @@ document.getElementById("file-selector").setAttribute("value", id);
 function imageChange(input) {
     const [picture] = input.files
     if(picture)
-        document.getElementById("student-img").src = URL.createObjectURL(picture);
+        document.getElementById("custom-img").src = URL.createObjectURL(picture);
 }
 
 function editName(but) {
@@ -31,28 +31,37 @@ function editName(but) {
 
 function valid() {
     var n = document.getElementById("name");
-    var upName =false;
+    var upName = false;
     if(n.tagName == "INPUT")
         upName = true;
 
     var f = document.getElementById("file-selector");
 
+    var imgDone = false;
+    var nameDone = false;
     if(f.files[0]) {
         var formData = new FormData();
         formData.append(id, f.files[0], id + ".jpg")
-        sendPostFormData("/api/upload/student", formData, (success, response) => {
-            if(!upName) {
-                window.location = "students.html";
-            }
+
+        sendPostFormData(apiUploadPath, formData, (success, response) => {
+            imgDone = true
+            if(nameDone)
+                window.location = redirectLocation;
         });
-    }
+    }else 
+        imgDone = true;
 
     if(upName) {
         var text = n.value;
         if(text != "")
-        sendPost("/api/students", '{"action": "update", "id": ' + id + ', "name": "' + n.value + '"}', (success, response) => {
-            window.location = "students.html";
+        sendPost(apiNamePath, '{"action": "update", "id": ' + id + ', "name": "' + n.value + '"}', (success, response) => {
+            nameDone = true;
+            if(imgDone)
+                window.location = redirectLocation;
         });
-    }else
-        window.location = "students.html";
+    }else {
+        nameDone = true;
+        if(imgDone == true)
+           window.location = redirectLocation;
+    }
 }

@@ -1,0 +1,82 @@
+{
+	//download object
+	"download": {
+		//download url
+		"url": "https://argus.alwaysdata.net/common/file/school/basic/",
+		"files": {
+			//common files
+			"common": [
+				//html
+				"www/404.html",
+				"www/addmaterial.html",
+				"www/addstudent.html",
+				"www/custom.html",
+				"www/index.html",
+				"www/materials.html",
+				"www/students.html",
+
+				//css
+				"www/css/style.css",
+
+				//js
+				"www/js/cardinal.js",
+				"www/js/custom.js",
+				"www/js/loader.js",
+				"www/js/materials.js",
+				"www/js/students.js",
+				"www/js/upload.js",
+
+				//images
+				"www/images/material/default.png",
+				"www/images/tomcat.gif",
+				"www/images/icon.png",
+				
+				//resource
+				"res/404.html",
+				"res/favicon.ico",
+
+				//manifest
+				"manifest.cjson",
+
+				//jar file
+				"Update.jar",
+				"School.jar"
+			],
+			//windows files
+			"windows": [],
+
+			//linux files
+			"linux": [],
+
+			//optional
+			"optional": [
+				"materials.cjson",
+				"quantities.cjson",
+				"students.cjson"
+
+			]
+		}
+	},
+
+	"shortcut": {
+		"name": "School",
+		"target": "School.jar",
+		"description": "",
+		"icon": "res/favicon.ico"
+	},
+
+	"path": {
+		"default": {
+			"location": "",
+			"folder": ""
+		},
+		"required": {
+			"folder": "school"
+		}
+	},
+	
+	"manifest": {
+		"version": "0.1.0b",
+		"debug": "0.0.0"
+	}
+}

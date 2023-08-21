@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: .
+Launcher-Args: -name "%name%" -id 0xjar -log true -update true
+Launcher-Class-Path: %path%%name%.%suf%
+Main-Instance-Class: net.argus.school.api.MainAPI;
+Main-Class: net.argus.system.ProgramLauncher

@@ -7,6 +7,9 @@ import com.sun.net.httpserver.HttpExchange;
 import net.argus.school.api.MainAPI;
 import net.argus.school.api.http.APIHandler;
 import net.argus.school.api.http.pack.PackagePrefab;
+import net.argus.system.UserSystem;
+import net.argus.util.DoubleStock;
+import net.argus.util.Version;
 
 
 public class APIVersionHandler extends APIHandler {
@@ -17,7 +20,13 @@ public class APIVersionHandler extends APIHandler {
 
 	@Override
 	public void doGet(HttpExchange exchange) throws IOException {
-		send(exchange, PackagePrefab.getVersionPackage(MainAPI.VERSION));
+		String version = MainAPI.VERSION.toString();
+		if(UserSystem.getUpdate() != null) {
+			DoubleStock<Version, Version> ds = UserSystem.getUpdate().getLatestVersion();
+			version = ds.getFirst().toString() + ds.getSecond().toString();
+		}
+		
+		send(exchange, PackagePrefab.getVersionPackage(version));
 
 	}
 

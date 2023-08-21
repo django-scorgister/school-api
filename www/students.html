@@ -8,8 +8,14 @@
     <script text="text/javascript" src="js/cardinal.js"></script>
 </head>
 <body>
+    <header class="main-header">
+        <a href="index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="images/icon.png"></a>
+        <div class="header-body">
+            <a href="addstudent.html"><button>Add student</button></a>
+        </div>
+    </header>
     <div id="card-container">
-
+        <!--all student card-->
     </div>
     <div id="main" class="card" style="display: none;">
         <div class="top-part">
@@ -24,6 +30,8 @@
             </select><br>
             <span id="main-material-quantity">--</span>
             <button id="add-one">+1</button>
+            <p id="error-add" class="error" hidden>No more stock</p>
+
         </div>
     </div>
     <div id="veil" style="display: none;" onclick="restore(getZoomedElement().id)"></div>
@@ -31,3 +39,4 @@
 </html>
 <script text="text/javascript" src="js/loader.js"></script>
 <script text="text/javascript" src="js/students.js"></script>
+<script text="text/javascript" src="js/main-card.js"></script>

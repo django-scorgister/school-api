@@ -3,12 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script text="text/javascript" src="js/cardinal.js"></script>
     <title>School</title>
+    <style>
+        #header-icon:hover {
+            border-radius: 0px;
+            box-shadow: 0px 0px 0px var(--main-color-darkest);
+        }
+
+        #exit-img {
+            transition: 0.4s;
+            height: 60px;
+            margin-top: auto;
+            margin-bottom: auto;
+            border-radius: 20px;
+            filter: drop-shadow(0px 0px 15px white);
+
+        }
+
+        #exit-img:hover {
+            filter: drop-shadow(0px 0px 15px red);
+        }
+
+        .header-right {
+            position: absolute;
+            right: 0;
+            top: 10px;
+            margin-left: 10px;
+            margin-right: 15px;
+        }
+
+        #exit-banner {
+            background-color: red;
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>
-        Hello World
-    </h1>
-
+    <header class="main-header">
+       <img id="header-icon" src="images/icon.png">
+        <div class="header-body">
+            <a href="students.html"><button>Students</button></a>
+            <a href="materials.html"><button>Materials</button></a>
+        </div>
+        <div class="header-right">
+            <img alt="exit" title="Exit" id="exit-img" src="images/off.png" onclick="exit()">
+        </div>
+    </header>
+    <div hidden id="exit-banner">
+        <span>You have turned off the server, therefore the application is no longer usable !</span>
+    </div>
+    <div id="main-body">
+        <img height="200px" src="images/icon.png">
+        <h1>School</h1>
+        <span>Version: </span><h3 id="version">--</h3>
+    </div>
 </body>
+<script lang="javascript">
+    function exit() {
+        sendGet("/api/exit", (success, response) => {
+            console.log(success);
+            if(success)
+                document.getElementById("exit-banner").hidden = false;
+        });
+    }
+    sendGet("/api/version", (success, response) => {
+        document.getElementById("version").innerText = response['result']['version'];
+
+    });
+</script>
 </html>

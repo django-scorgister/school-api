@@ -14,6 +14,12 @@ function loadMainCardBody(id) {
     sel.onchange = selectChange;
 
     sendGet("/api/students", (success, response) => {
+        if(!success) {
+            var op = document.createElement("option");
+            op.innerText = "No students registered";
+            sel.appendChild(op);
+            return;
+        }
 
         var stus = response["result"]["students"];
         for(var i = 0; i < stus.length; i++) {

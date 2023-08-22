@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materials</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main-card.css">
     <script text="text/javascript" src="js/cardinal.js"></script>
 </head>
 <body>
@@ -14,8 +15,10 @@
             <a href="addmaterial.html"><button>Add material</button></a>
         </div>
     </header>
+    <h1 class="page-title">Materials</h1>
+    <hr>
     <div id="card-container">
-        
+        <!--all student card-->
     </div>
     <div id="main" class="card" style="display: none;">
         <div class="top-part">
@@ -40,6 +43,9 @@
     <div id="veil" style="display: none;" onclick="restore(getZoomedElement().id)"></div>
 </body>
 </html>
+<script lang="javascript">
+    const addRedirect = "addmaterial.html";
+</script>
 <script text="text/javascript" src="js/loader.js"></script>
 <script text="text/javascript" src="js/materials.js"></script>
 <script text="text/javascript" src="js/main-card.js"></script>

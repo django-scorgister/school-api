@@ -44,9 +44,13 @@ function sendPostFormData(url, formData, response = function() {}) {
 
 function result(xhr, response) {
     if(xhr.readyState === 4) {
-        var obj = JSON.parse(xhr.response);
-        if(obj != null) {
-            response(obj['success'], obj);
+        try {
+            var obj = JSON.parse(xhr.response);
+            if(obj != null) {
+                response(obj['success'], obj);
+            }
+        }catch(e) {
+            response(false, xhr.response);
         }
     }
 }

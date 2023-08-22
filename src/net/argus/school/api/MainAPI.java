@@ -30,7 +30,7 @@ import net.argus.util.debug.Info;
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.0a");
+	public static final Version VERSION = new Version("1.0");
 	
 	public void main(String[] args) {
 		InitializationSystem.initSystem(args);
@@ -65,9 +65,9 @@ public class MainAPI extends CardinalProgram {
 			
 			srv.start();
 		} catch(IOException e) {
-			if(e instanceof BindException)
+			if(e instanceof BindException) {
 				Debug.log("Server already start", Info.ERROR);
-			else
+			}else
 				e.printStackTrace();
 		}
 		

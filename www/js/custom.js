@@ -3,7 +3,12 @@ const id = params.get("id");
 
 document.getElementById("custom-img").src = defualtImgPath + id + ".jpeg";
 sendPost(apiNamePath, '{"action": "get", "id": ' + id + '}', (success, response) => {
-    document.getElementById("name").innerText = response['result']["name"];
+    if(success)
+        document.getElementById("name").innerText = response['result']["name"];
+    else {
+        alert("Error: no id selected");
+        window.location = redirectLocation;
+    }
 });
 
 document.getElementById("file-selector").setAttribute("value", id);

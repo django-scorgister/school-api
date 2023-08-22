@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom</title>
+    <title>Custom Student</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/custom.css">
     <script lang="javascript" src="js/cardinal.js"></script>
 </head>
 <body>
-    <div>
-        <div class="upfile-parent">
-            <img id="custom-img" src="images/student/default.png" onerror="this.src='images/student/default.png'">
-            <input id="file-selector" type="file" accept="image/jpeg" onchange="imageChange(this)">
+    <header class="main-header">
+        <a href="index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="images/icon.png"></a>
+        <div class="header-body">
+            <a href="students.html"><button>Students</button></a>
         </div>
-        <p>cliqer sur l'image pour éditer</p>
-        <span id="name"></span>
-        <button id="edit-name" onclick="editName(this)">éditer le nom</button>
-        <button onclick="valid()">Valider</button>
+    </header>
+    <div>
+        <h1 class="page-title">Custom student infos</h1>
+        <div class="custom-main card">
+            <div class="upfile-parent">
+                <img id="custom-img" src="images/student/default.png" onerror="this.src='images/student/default.png'">
+                <input id="file-selector" type="file" accept="image/jpeg" onchange="imageChange(this)">
+            </div>
+            <p>click on image to edit</p>
+            <span id="name"></span>
+            <button id="edit-name" onclick="editName(this)">Edit name</button>
+            <br>
+            <button onclick="valid()">Submit</button>
+        </div>
     </div>
-    
 </body>
 <script lang="javascript">
-    var defualtImgPath = "images/student/";
-    var apiUploadPath = "/api/upload/student";
-    var apiNamePath = "/api/students";
-    var redirectLocation = "students.html";
+    const defualtImgPath = "images/student/";
+    const apiUploadPath = "/api/upload/student";
+    const apiNamePath = "/api/students";
+    const redirectLocation = "students.html";
 </script>
 <script lang="javascript" src="js/custom.js"></script>
 </html>

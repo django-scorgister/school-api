@@ -9,6 +9,10 @@ function load(apiPath, arrayName, imgPath) {
         for(var i = 0; i < sts.length; i++) {
             addCard(sts[i], imgPath);
         }
+
+        if(sts.length == 0) {
+            addAddCard();
+        }
     };
 
     sendGet(apiPath, resFunc);
@@ -34,4 +38,28 @@ function addCard(cardObj, imgPath) {
     div.appendChild(h3);
     
     DIV_CONTAINER.appendChild(div);
+}
+
+function addAddCard() {
+    var div = document.createElement("div");
+
+    div.setAttribute("class", "card basic");
+    div.setAttribute("onclick", "addNew()")
+    var img = document.createElement("img");
+    img.setAttribute("class", "card-img");
+
+    img.setAttribute("src", "images/add.png");
+    img.setAttribute("class", "img-card");
+
+    var h3 = document.createElement("h3");
+    h3.innerText = "Add new";
+
+    div.appendChild(img);
+    div.appendChild(h3);
+    
+    DIV_CONTAINER.appendChild(div);
+}
+
+function addNew() {
+    window.location = addRedirect;
 }

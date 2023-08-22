@@ -2,7 +2,7 @@
 	//download object
 	"download": {
 		//download url
-		"url": "https://argus.alwaysdata.net/common/file/school/basic/",
+		"url": "https://argus.alwaysdata.net/common/files/school/basic/",
 		"files": {
 			//common files
 			"common": [
@@ -11,25 +11,33 @@
 				"www/addmaterial.html",
 				"www/addstudent.html",
 				"www/custom.html",
+				"www/custommat.html",
 				"www/index.html",
 				"www/materials.html",
 				"www/students.html",
 
 				//css
+				"www/css/add.css",
+				"www/css/custom.css",
+				"www/css/index.css",
+				"www/css/main-card.css",
 				"www/css/style.css",
 
 				//js
 				"www/js/cardinal.js",
 				"www/js/custom.js",
 				"www/js/loader.js",
+				"www/js/main-card.js",
 				"www/js/materials.js",
 				"www/js/students.js",
 				"www/js/upload.js",
 
 				//images
 				"www/images/material/default.png",
-				"www/images/tomcat.gif",
+				"www/images/student/default.png",
+				"www/images/add.png",
 				"www/images/icon.png",
+				"www/images/off.png",
 				
 				//resource
 				"res/404.html",
@@ -53,7 +61,6 @@
 				"materials.cjson",
 				"quantities.cjson",
 				"students.cjson"
-
 			]
 		}
 	},
@@ -76,7 +83,7 @@
 	},
 	
 	"manifest": {
-		"version": "0.1.0b",
+		"version": "1.0.0",
 		"debug": "0.0.0"
 	}
 }

@@ -4,13 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/add.css">
     <script text="text/javascript" src="js/cardinal.js"></script>
-    <title>Add Student</title>
+    <title>Add Material</title>
 </head>
 <body>
-    <input id="material-name" name="name" type="text" placeholder="Material name">
-    <input id="material-quantity" name="base_quantity" type="number" value="0" min="0" placeholder="Base quantity">
-    <input value="Add" id="submit" type="submit">
+    <header class="main-header">
+        <a href="index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="images/icon.png"></a>
+        <div class="header-body">
+            <a href="materials.html"><button>Materials</button></a>
+        </div>
+    </header>
+    <div>
+        <h1 class="page-title">Add material</h1>
+        <hr>
+        <div class="center-container">
+            <input id="material-name" name="name" type="text" placeholder="Material name"><br>
+            <input id="material-quantity" name="base_quantity" type="number" min="0" placeholder="Base quantity"><br>
+            <input value="Add" id="submit" type="submit">
+        </div>
+    </div>
 </body>
 <script lang="javascript">
 
@@ -18,11 +31,11 @@
     var mquantity = document.getElementById("material-quantity");
     
     document.getElementById("submit").onclick = () => {
-        console.log(mname.value);
+
         if(mname.value == null || mname.value == "" || mname.value == undefined) {
-            alert("aucun nom renseigné");
+            alert("No name provided");
         }else if(mquantity.value < 0) {
-            alert("quantité négative");
+            alert("Negative quantity");
             mquantity.value = mquantity.value*-1;
         }else 
             sendPost("/api/materials", '{"action": "add", "name": "' + mname.value + '", "base_quantity": ' + mquantity.value + '}', (success, response) => {

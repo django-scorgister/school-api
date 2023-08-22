@@ -41,8 +41,9 @@ function selectChange(event) {
 function displayQuantity(id, uid) {
     document.getElementById("main-material-quantity").innerText = "--";
 
-    sendPost("/api/quantity", `{"action": "get", "id": ${id}, "user_id": ${uid}}`, (xhr, response) => {
-        document.getElementById("main-material-quantity").innerText = response['result']['quantity'];
+    sendPost("/api/quantity", `{"action": "get", "id": ${id}, "user_id": ${uid}}`, (success, response) => {
+        if(success)
+            document.getElementById("main-material-quantity").innerText = response['result']['quantity'];
     });
 }
 
@@ -74,7 +75,13 @@ function loadMainCardBody(id) {
     document.getElementById("main-custom").href = "custom.html?id=" + id;
      
 
-    sendGet("/api/materials", (xhr, response) => {
+    sendGet("/api/materials", (success, response) => {
+        if(!success) {
+            var op = document.createElement("option");
+            op.innerText = "No materials registered";
+            sel.appendChild(op);
+            return;
+        }
         var mats = response["result"]["materials"];
         for(var i = 0; i < mats.length; i++) {
             var op = document.createElement("option");

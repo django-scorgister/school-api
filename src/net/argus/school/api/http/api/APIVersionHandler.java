@@ -23,7 +23,7 @@ public class APIVersionHandler extends APIHandler {
 		String version = MainAPI.VERSION.toString();
 		if(UserSystem.getUpdate() != null) {
 			DoubleStock<Version, Version> ds = UserSystem.getUpdate().getLatestVersion();
-			version = ds.getFirst().toString() + ds.getSecond().toString();
+			version = ds.getFirst().toString() + "." + ds.getSecond().toString();
 		}
 		
 		send(exchange, PackagePrefab.getVersionPackage(version));

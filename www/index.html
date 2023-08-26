@@ -64,7 +64,6 @@
 <script lang="javascript">
     function exit() {
         sendGet("/api/exit", (success, response) => {
-            console.log(success);
             if(success)
                 document.getElementById("exit-banner").hidden = false;
         });

@@ -3,7 +3,9 @@ load("/api/materials", "materials", "images/material");
 function loadMainCardBody(id) {
 
     document.getElementById("stock-input").hidden = true;
+    document.getElementById("add-stock").innerText = "Add stock";
 
+    document.getElementById("add-stock").onclick = addStock;
 
     document.getElementById("main-custom").href = "custommat.html?id=" + id;
 
@@ -68,24 +70,37 @@ function selectChange(event) {
     displayQuantity(id, uid);
 }
 
-function addStock() {
+function addStock(e) {
     var inStock = document.getElementById("stock-input");
     if(inStock.hidden) {
         inStock.value = 0;
         inStock.hidden = false;
+        e.target.innerText = "Submit";
+
     }else {
         var id = getZoomedElement().id;
         var quantity = inStock.value;
-        if(quantity < 0) {
-            alert("Negative quantity !");
+
+        if(quantity == "") {
+            inStock.value = 0;
             return;
         }
+
+        quantity = parseInt(quantity);
+
         if(quantity == 0) {
             inStock.hidden = true;
+            e.target.innerText = "Add stock";
+
         }
         sendPost("/api/quantity", '{"action": "add_quantity", "id": ' + id + ', "quantity", ' + quantity + '}', (success, response) => {
-            inStock.hidden = true;
-            updateQuantity(id);
+            if(success) {
+                inStock.hidden = true;
+                e.target.innerText = "Add stock";
+                updateQuantity(id);
+            }else {
+                inStock.value = 0;
+            }
         });
     }
 }

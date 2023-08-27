@@ -30,7 +30,7 @@ import net.argus.util.debug.Info;
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.0");
+	public static final Version VERSION = new Version("1.0.1");
 	
 	public void main(String[] args) {
 		InitializationSystem.initSystem(args);

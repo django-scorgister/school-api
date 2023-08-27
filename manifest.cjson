@@ -83,7 +83,7 @@
 	},
 	
 	"manifest": {
-		"version": "1.0.0",
-		"debug": "0.0.3"
+		"version": "1.0.1",
+		"debug": "0.0.0"
 	}
 }

@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import net.argus.cjson.CJSON;
 import net.argus.school.api.Materials;
+import net.argus.school.api.Quantities;
 import net.argus.school.api.http.APIHandler;
 import net.argus.school.api.http.pack.PackagePrefab;
 
@@ -46,8 +47,13 @@ public class APIMaterialsHandler extends APIHandler {
 				
 				
 			case "remove":
-				Materials.removeMaterial(parameters.getInt("id"));
-				sendEmptyPackage(exchange);
+				id = parameters.getInt("id");
+				if(Materials.removeMaterial(id))
+					if(Quantities.removeMaterial(id)) {
+						sendEmptyPackage(exchange);
+						break;
+					}
+				send500(exchange);
 				break;
 		}
 	}

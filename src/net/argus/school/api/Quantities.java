@@ -104,6 +104,39 @@ public class Quantities {
 		return obj.getInt("base");
 	}
 	
+	public synchronized static boolean removeMaterial(int id) throws IOException {
+		CJSONObject mainObj = getMainObject();
+		for(CJSONItem item : mainObj.getValue()) {
+			if(item.getName().equals(Integer.toString(id))) {
+				List<CJSONItem> it = mainObj.getValue();
+				it.remove(item);
+								
+				writeFile();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public synchronized static boolean removeStudent(int id) throws IOException {
+		CJSONObject mainObj = getMainObject();
+		for(CJSONItem item : mainObj.getValue()) {
+			if(item.getValue().getValue(Integer.toString(id)) != null) {
+				List<CJSONItem> it = ((CJSONObject) (item.getValue())).getValue();
+				
+				for(CJSONItem i : it) {
+					if(i.getName().equals(Integer.toString(id))) {
+						it.remove(i);
+						break;
+					}
+				}
+			}
+		}
+		
+		writeFile();
+		return true;
+	}
+	
 	private static void writeFile() throws IOException {
         FileOutputStream fos = new FileOutputStream(FILE.getFile());
         

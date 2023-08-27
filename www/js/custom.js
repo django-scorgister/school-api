@@ -59,14 +59,24 @@ function valid() {
     if(upName) {
         var text = n.value;
         if(text != "")
-        sendPost(apiNamePath, '{"action": "update", "id": ' + id + ', "name": "' + n.value + '"}', (success, response) => {
-            nameDone = true;
-            if(imgDone)
-                window.location = redirectLocation;
-        });
+            sendPost(apiNamePath, '{"action": "update", "id": ' + id + ', "name": "' + n.value + '"}', (success, response) => {
+                nameDone = true;
+                if(imgDone)
+                    window.location = redirectLocation;
+            });
     }else {
         nameDone = true;
         if(imgDone == true)
            window.location = redirectLocation;
     }
+}
+
+function remove() {
+    var p = prompt('To confirm, type "' + id +'" in the box below');
+    if(p == id)
+        sendPost(apiNamePath, '{"action": "remove", "id": ' + id + '}', (success, response) => {
+            window.location = redirectLocation;
+        });
+    else if(p != ""  && p != null)
+        alert("Incorrect confirmation");
 }

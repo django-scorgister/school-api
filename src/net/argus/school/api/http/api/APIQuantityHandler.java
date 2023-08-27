@@ -30,20 +30,13 @@ public class APIQuantityHandler extends APIHandler {
 			case "get":
 				int id = parameters.getInt("id");
 				int uid = parameters.getInt("user_id");
-				CJSONObject obj = Quantities.getObject(id);
-				if(obj == null) {
+				int q = getQuantity(id, uid);
+				
+				if(q == -1) {
 					send404(exchange);
 					break;
 				}
-
-				CJSONValue val = null;
-				if((val = obj.getValue(Integer.toString(uid))) == null) {
-					Quantities.addStudentCount(id, uid, 0);
-					send(exchange, PackagePrefab.getQuantityPackage(0));
-					break;
-				}
 				
-				int q = val.getInt();
 				send(exchange, PackagePrefab.getQuantityPackage(q));
 				break;
 				
@@ -60,7 +53,7 @@ public class APIQuantityHandler extends APIHandler {
 				
 			case "get_base":
 				id = parameters.getInt("id");
-				obj = Quantities.getObject(id);
+				CJSONObject obj = Quantities.getObject(id);
 				if(obj == null) {
 					send404(exchange);
 					break;
@@ -79,6 +72,12 @@ public class APIQuantityHandler extends APIHandler {
 					send500(exchange);
 					break;
 				}
+				
+				if(getQuantity(id, uid) + add < 0) {
+					send500(exchange);
+					break;
+				}
+				
 				Quantities.addStudentCount(id, uid, add);
 				sendEmptyPackage(exchange);
 				break;
@@ -87,10 +86,29 @@ public class APIQuantityHandler extends APIHandler {
 				id = parameters.getInt("id");
 				add = parameters.getInt("quantity");
 				
+				if(Quantities.getQuantity(id) + add < 0) {
+					send500(exchange);
+					break;
+				}
+				
 				Quantities.addCount(id, add);
 				sendEmptyPackage(exchange);
 				break;
 		}
+	}
+	
+	private int getQuantity(int id, int uid) throws IOException {
+		CJSONObject obj = Quantities.getObject(id);
+		if(obj == null)
+			return -1;
+
+		CJSONValue val = null;
+		if((val = obj.getValue(Integer.toString(uid))) == null) {
+			Quantities.addStudentCount(id, uid, 0);
+			return 0;
+		}
+		
+		return val.getInt();
 	}
 
 }

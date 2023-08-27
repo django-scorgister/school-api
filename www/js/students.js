@@ -55,10 +55,47 @@ function addOne(event) {
         if(success) {
             var o = document.getElementById("main-material-quantity");
             o.innerText = parseInt(o.innerText) + 1;
+            document.getElementById("error-add").hidden = true;
         }else {
             document.getElementById("error-add").hidden = false;
         }
     });
+}
+
+function addCustom(e) {
+    var custom = document.getElementById("custom-input");
+    if(custom.hidden) {
+        custom.value = 0;
+        custom.hidden = false;
+        e.target.innerText = "Submit";
+    }else {
+        var id = document.getElementById("main-select-materials").value;
+        var uid = getZoomedElement().id;
+        var quantity = custom.value;
+        if(quantity == "") {
+            custom.value = 0;
+            return;
+        }
+
+        quantity = parseInt(quantity);
+
+        if(quantity == 0) {
+            custom.hidden = true;
+            e.target.innerText = "Other quantity";
+        }
+        sendPost("/api/quantity", '{"action": "add", "id": ' + id + ', "user_id": ' + uid + ', "quantity", ' + quantity + '}', (success, response) => {
+            if(success) {
+                custom.hidden = true;
+                var o = document.getElementById("main-material-quantity");
+                o.innerText = parseInt(o.innerText) + parseInt(quantity);
+                document.getElementById("error-add").hidden = true;
+                e.target.innerText = "Other quantity";
+
+            }else {
+                document.getElementById("error-add").hidden = false;
+            }
+        });
+    }
 }
 
 function loadMainCardBody(id) {
@@ -68,6 +105,10 @@ function loadMainCardBody(id) {
     sel.onchange = selectChange;
 
     document.getElementById("add-one").onclick = addOne;
+    document.getElementById("add-custom").onclick = addCustom;
+    document.getElementById("add-custom").innerText = "Other quantity";
+
+
     document.getElementById("main-material-quantity").innerText = "--";
 
     document.getElementById("error-add").hidden = true;

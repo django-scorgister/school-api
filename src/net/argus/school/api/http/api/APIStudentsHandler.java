@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpExchange;
 
 import net.argus.cjson.CJSON;
+import net.argus.school.api.Quantities;
 import net.argus.school.api.Students;
 import net.argus.school.api.http.APIHandler;
 import net.argus.school.api.http.pack.PackagePrefab;
@@ -46,8 +47,13 @@ public class APIStudentsHandler extends APIHandler {
 				break;
 				
 			case "remove":
-				Students.removeStudent(parameters.getInt("id"));
-				sendEmptyPackage(exchange);
+				id = parameters.getInt("id");
+				if(Students.removeStudent(id))
+					if(Quantities.removeStudent(id)) {
+						sendEmptyPackage(exchange);
+						break;
+					}
+				send500(exchange);
 				break;
 	
 				

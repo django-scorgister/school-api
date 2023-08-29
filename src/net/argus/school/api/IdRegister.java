@@ -24,9 +24,9 @@ public class IdRegister {
 		Random rand = new Random();
 		int  id = 0;
 		
-		do
+		do 
 			id = rand.nextInt();
-		while(ids.contains(id));
+		while(id <= 0 && ids.contains(id));
 		
 		ids.add(id);
 		

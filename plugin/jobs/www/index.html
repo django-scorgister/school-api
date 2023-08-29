@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>Jobs home</title>
+    <script text="text/javascript" src="../js/cardinal.js"></script>
+
+</head>
+<body>
+    <header class="main-header">
+        <a href="../index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="../images/icon.png"></a>
+        <div id="header-body">
+            <a href="jobs.html"><button>Jobs</button></a>
+            <a href="randomize.html"><button>Randomize</button></a>
+        </div>
+    </header>
+    <div id="main-body">
+        <img height="200px" src="../images/job/default.png">
+        <h1>Plugin Jobs</h1>
+        <span>Version: </span><h3 id="version">--</h3>
+    </div>
+</body>
+<script lang="javascript">
+    sendPost("/api/plugins", '{"action": "get", "plugin_id": "jobs"}', (success, response) => {
+        document.getElementById("version").innerText = response['result']['version'];
+
+    });
+</script>
+</html>

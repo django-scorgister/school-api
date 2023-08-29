@@ -120,7 +120,7 @@ body {
     box-shadow: 0px 0px 15px var(--main-color-darkest);
 }
 
-.header-body {
+#header-body {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 10px;
@@ -208,4 +208,16 @@ input[type=text], input[type=number] {
 input[type=text]:hover, input[type=number]:hover {
     border-color: var(--main-color-darkest);
     box-shadow: 0px 0px 30px var(--main-color-darkest);
+}
+
+.remove {
+    background-color: rgb(256, 0, 0);
+    box-shadow: 0px 0px 30px rgb(256, 0, 0);
+
+}
+
+.remove:hover {
+    background-color: rgb(180, 24, 24);
+    box-shadow: 0px 0px 30px rgb(180, 24, 24);
+
 }

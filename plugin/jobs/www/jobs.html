@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/main-card.css">
+    <script text="text/javascript" src="../js/cardinal.js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="../images/icon.png"></a>
+        <div id="header-body">
+            <a href="addjob.html"><button>Add job</button></a>
+            <a href="randomize.html"><button>Randomize</button></a>
+        </div>
+    </header>
+    <h1 class="page-title">Jobs</h1>
+    <hr>
+    <div id="card-container">
+        <!--all jobs card-->
+    </div>
+    <div id="main" class="card" style="display: none;">
+        <div class="top-part">
+            <img id="main-img" class="card-img"/>
+            <h3 id="main-name"></h3>
+            <a id="main-custom" href="customjob.html"><button>Edit job</button></a>
+        </div>
+        <div>
+            <span>Capability: </span>
+            <strong id="capability">--</strong>
+            <button id="edit-capability">Edit capability</button>
+            <br>
+
+            <span>Attributed to: </span>
+            <strong id="attributed">--</strong><br>
+            <select id="select-student" hidden></select>
+            <select id="select-student-att" hidden></select>
+            <button id="assign">Assign</button>
+            <button id="remove" class="remove">Remove</button>
+            <br>
+            <p id="error" class="error" hidden>Impossible action</p>
+        </div>
+    </div>
+    <div id="veil" style="display: none;" onclick="restore(getZoomedElement().id)"></div>
+</body>
+</html>
+<script lang="javascript">
+    const addRedirect = "addjob.html";
+    const imgAdd = "../images/add.png";
+</script>
+<script text="text/javascript" src="../js/loader.js"></script>
+<script text="text/javascript" src="js/jobs.js"></script>
+<script text="text/javascript" src="../js/main-card.js"></script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/add.css">
+    <script text="text/javascript" src="../js/cardinal.js"></script>
+    <title>Add Job</title>
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="../images/icon.png"></a>
+        <div class="header-body">
+            <a href="jobs.html"><button>Jobs</button></a>
+        </div>
+    </header>
+    <div>
+        <h1 class="page-title">Add job</h1>
+        <hr>
+        <div class="center-container">
+            <input id="job-name" name="name" type="text" placeholder="Job name"><br>
+            <input id="job-capability" name="capability" type="number" min="1" placeholder="Capability"><br>
+            <input value="Add" id="submit" type="submit">
+        </div>
+    </div>
+</body>
+<script lang="javascript">
+
+    var jname = document.getElementById("job-name");
+    var cap = document.getElementById("job-capability");
+    
+    document.getElementById("submit").onclick = () => {
+        console.log(name.value);
+        if(jname.value == null || jname.value == "" || jname.value == undefined) {
+            alert("No name provided");
+        }else if(cap.value < 1) {
+            alert("Incorrect capability");
+            if(cap.value < 0)
+                cap.value = cap.value*-1;
+            else
+                cap.value = 1;
+        }else 
+            sendPost("/api/jobs", '{"action": "add", "name": "' + jname.value + '", "capability": ' + cap.value + '}', (success, response) => {
+                window.location  = "jobs.html";
+            });
+   };
+
+</script>
+</html>

@@ -35,9 +35,26 @@
 				//images
 				"www/images/material/default.png",
 				"www/images/student/default.png",
+				"www/images/job/default.png",
+				"www/images/job/forbidden.png",
 				"www/images/add.png",
 				"www/images/icon.png",
 				"www/images/off.png",
+
+				//plugin
+				"plugin/jobs.plug",
+
+
+				//plugin res
+				"plugin/jobs/www/404.html",
+				"plugin/jobs/www/addjob.html",
+				"plugin/jobs/www/customjob.html",
+				"plugin/jobs/www/index.html",
+				"plugin/jobs/www/jobs.html",
+				"plugin/jobs/www/randomize.html",
+				"plugin/jobs/www/css/randomize.css",
+				"plugin/jobs/www/js/jobs.js",
+				"plugin/jobs/www/js/randomize.js",
 				
 				//resource
 				"res/404.html",
@@ -60,7 +77,10 @@
 			"optional": [
 				"materials.cjson",
 				"quantities.cjson",
-				"students.cjson"
+				"students.cjson",
+
+				"plugin/jobs/jobs.cjson",
+				"plugin/jobs/attribution.cjson"
 			]
 		}
 	},
@@ -83,7 +103,7 @@
 	},
 	
 	"manifest": {
-		"version": "1.0.1",
+		"version": "1.1.0",
 		"debug": "0.0.0"
 	}
 }

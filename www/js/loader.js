@@ -1,24 +1,28 @@
 const DIV_CONTAINER = document.getElementById("card-container");
 
-function load(apiPath, arrayName, imgPath) {
+function load(apiPath, arrayName, imgPath, idContainer = "card-container", customCardFunc = customCard0, postData = null) {
     var resFunc = function(success, obj) {
         if(!success)
             return;
 
         var sts = obj['result'][arrayName];
         for(var i = 0; i < sts.length; i++) {
-            addCard(sts[i], imgPath);
+            addCard(sts[i], imgPath, idContainer, customCardFunc);
         }
 
         if(sts.length == 0) {
-            addAddCard();
+            addAddCard(idContainer, customCardFunc);
         }
     };
 
-    sendGet(apiPath, resFunc);
+    if(postData == null)
+        sendGet(apiPath, resFunc);
+    else
+        sendPost(apiPath, postData, resFunc);
+
 }
 
-function addCard(cardObj, imgPath) {
+function addCard(cardObj, imgPath, idContainer, customCardFunc) {
     var div = document.createElement("div");
     div.setAttribute("id", cardObj['id']);
     div.setAttribute("class", "card basic");
@@ -36,11 +40,13 @@ function addCard(cardObj, imgPath) {
 
     div.appendChild(img);
     div.appendChild(h3);
+
+    customCardFunc(div);
     
-    DIV_CONTAINER.appendChild(div);
+    document.getElementById(idContainer).appendChild(div);
 }
 
-function addAddCard() {
+function addAddCard(idContainer, customCardFunc) {
     var div = document.createElement("div");
 
     div.setAttribute("class", "card basic");
@@ -48,7 +54,7 @@ function addAddCard() {
     var img = document.createElement("img");
     img.setAttribute("class", "card-img");
 
-    img.setAttribute("src", "images/add.png");
+    img.setAttribute("src", imgAdd);
     img.setAttribute("class", "img-card");
 
     var h3 = document.createElement("h3");
@@ -56,8 +62,14 @@ function addAddCard() {
 
     div.appendChild(img);
     div.appendChild(h3);
+
+    customCardFunc(div);
     
-    DIV_CONTAINER.appendChild(div);
+    document.getElementById(idContainer).appendChild(div);
+}
+
+function customCard0(div) {
+
 }
 
 function addNew() {

@@ -44,7 +44,7 @@
 <body>
     <header class="main-header">
        <img id="header-icon" src="images/icon.png">
-        <div class="header-body">
+        <div id="header-body">
             <a href="students.html"><button>Students</button></a>
             <a href="materials.html"><button>Materials</button></a>
         </div>
@@ -70,6 +70,28 @@
     }
     sendGet("/api/version", (success, response) => {
         document.getElementById("version").innerText = response['result']['version'];
+
+    });
+
+    sendGet("/api/plugins", (success, res) => {
+        var d = document.getElementById("header-body");
+        
+        if(typeof(res) === "string") {
+            return;
+        }
+
+        var plugs = res["result"]["plugins"];
+
+        for(var i = 0; i < plugs.length; i++) {
+            var a = document.createElement("a");
+            var b = document.createElement("button");
+
+            a.setAttribute("href", plugs[i]["plugin_id"] + "/");
+
+            b.innerText = plugs[i]["name"];
+            a.appendChild(b);
+            d.appendChild(a);
+        }
 
     });
 </script>

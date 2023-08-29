@@ -11,12 +11,16 @@ import com.sun.net.httpserver.HttpExchange;
 import net.argus.instance.CardinalProgram;
 import net.argus.instance.Instance;
 import net.argus.instance.Program;
+import net.argus.plugin.InitializationPlugin;
+import net.argus.plugin.PluginEvent;
+import net.argus.plugin.PluginRegister;
 import net.argus.school.api.http.APIHandler;
 import net.argus.school.api.http.APIServer;
 import net.argus.school.api.http.FileHandler;
 import net.argus.school.api.http.api.APIExitHandler;
 import net.argus.school.api.http.api.APIMaterialHandler;
 import net.argus.school.api.http.api.APIMaterialsHandler;
+import net.argus.school.api.http.api.APIPluginHandler;
 import net.argus.school.api.http.api.APIQuantityHandler;
 import net.argus.school.api.http.api.APIStudentsHandler;
 import net.argus.school.api.http.api.APIUploadMaterialHandler;
@@ -30,14 +34,18 @@ import net.argus.util.debug.Info;
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.0.1");
+	public static final Version VERSION = new Version("1.1.0");
 	
 	public void main(String[] args) {
 		InitializationSystem.initSystem(args);
+		InitializationPlugin.register();
 		try {
-			APIServer srv = new APIServer();
+			PluginRegister.preInit(new PluginEvent(this));
+
+			APIServer srv = new APIServer();			
 			
 			srv.addHandle(new APIVersionHandler());
+			srv.addHandle(new APIPluginHandler());
 			srv.addHandle(new APIExitHandler());
 			srv.addHandle(new APIUploadStudentHandler());
 			srv.addHandle(new APIUploadMaterialHandler());
@@ -62,6 +70,8 @@ public class MainAPI extends CardinalProgram {
 			srv.addHandle(new FileHandler("/school/", Instance.SYSTEM.getRootPath() + "/www/"));
 			srv.addHandle(new FileHandler("", Instance.SYSTEM.getRootPath() + "/res/"));
 			
+			PluginRegister.init(new PluginEvent(srv));
+			
 			
 			srv.start();
 		} catch(IOException e) {
@@ -74,6 +84,9 @@ public class MainAPI extends CardinalProgram {
 		try {
 			Desktop.getDesktop().browse(new URI("http://localhost:8000/school/"));
 		}catch(IOException | URISyntaxException e) {e.printStackTrace();}
+		
+		PluginRegister.postInit(new PluginEvent(this));
+
 	}
 
 }

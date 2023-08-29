@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randomize</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/randomize.css">
+    <link rel="stylesheet" href="../css/main-card.css">
+    <script text="text/javascript" src="../js/cardinal.js"></script>
+</head>
+<body>
+    <header class="main-header">
+        <a href="index.html" style="display: contents;"><img alt="home" title="Home" id="header-icon" src="../images/icon.png"></a>
+        <div id="header-body">
+            <a href="jobs.html"><button>Jobs</button></a>
+        </div>
+    </header>
+    <div id="jobs-selector">
+
+    </div>
+    <hr>
+    <div id="card-container">
+        <!--all students card-->
+    </div>
+    <div id="result-card" style="display: none;">
+
+    </div>
+    <div id="actions-buttons">
+        <button id="approve-button" class="rand-button approve" hidden onclick="approve()">Approve</button>
+        <button id="start" class="rand-button" onclick="launch()">Start</button>
+        <button id="next" class="rand-button" onclick="next(false)" hidden>Next</button>
+    </div>
+</body>
+<script text="text/javascript" src="../js/loader.js"></script>
+<script text="text/javascript" src="../js/main-card.js"></script>
+<script text="text/javascript" src="js/randomize.js"></script>
+<script text="text/javascript">
+    sendGet("/api/jobs", (success, response) => {
+        if(response["result"]["jobs"].length == 0) {
+            alert("No job registered");
+            window.location = "jobs.html";
+            return;
+        }
+        sendGet("/api/students", (success, response) => {
+            if(response["result"]["students"].length == 0) {
+                alert("No students registered");
+                window.location = "../students.html";
+                return;
+            }
+            var res = prompt("Warning: if you continue, the job assignments will be reset");
+            if(res == null) {
+                window.location = "jobs.html";
+            }else {
+                sendPost("/api/attribution", '{"action": "clear_attributions"}', (success, response) => {
+                    if(!success) {
+                        alert("An error occurred");
+                        window.location = "jobs.html";
+                    }
+                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, '{"action": "list_random_students"}');
+                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, '{"action": "list_random_students"}');
+                    load("/api/jobs", "jobs", "../images/job", "jobs-selector", customCard);
+                });
+            }
+        });
+    });
+</script>
+</html>

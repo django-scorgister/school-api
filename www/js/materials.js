@@ -37,7 +37,7 @@ function loadMainCardBody(id) {
 }
 
 function updateQuantity(id) {
-    sendPost("/api/quantity", '{"action": "get_quantity", "id": ' + id + '}', (success, response) => {
+    sendPost("/api/quantity", {"action": "get_quantity", "id": id}, (success, response) => {
         if(!success) {
             document.getElementById("remaining-quantity").innerText = "--";
             document.getElementById("used-quantity").innerText = "--";
@@ -46,7 +46,7 @@ function updateQuantity(id) {
 
         document.getElementById("remaining-quantity").innerText = response['result']['quantity'];
 
-        sendPost("/api/quantity", '{"action": "get_base", "id": ' + id + '}', (suc, res) => {
+        sendPost("/api/quantity", {"action": "get_base", "id": id}, (suc, res) => {
             document.getElementById("used-quantity").innerText = res['result']['quantity'] - response['result']['quantity'];
         });
     });
@@ -55,7 +55,7 @@ function updateQuantity(id) {
 function displayQuantity(id, uid) {
     document.getElementById("main-material-quantity").innerText = "--";
     
-    sendPost("/api/quantity", `{"action": "get", "id": ${id}, "user_id": ${uid}}`, (success, response) => {
+    sendPost("/api/quantity", {"action": "get", "id": id, "user_id": uid}, (success, response) => {
         if(success)
             document.getElementById("main-material-quantity").innerText = response['result']['quantity'];
         else
@@ -93,7 +93,7 @@ function addStock(e) {
             e.target.innerText = "Add stock";
 
         }
-        sendPost("/api/quantity", '{"action": "add_quantity", "id": ' + id + ', "quantity", ' + quantity + '}', (success, response) => {
+        sendPost("/api/quantity", {"action": "add_quantity", "id": id, "quantity": quantity}, (success, response) => {
             if(success) {
                 inStock.hidden = true;
                 e.target.innerText = "Add stock";

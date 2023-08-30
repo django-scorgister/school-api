@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 document.getElementById("custom-img").src = defualtImgPath + id + ".jpeg";
-sendPost(apiNamePath, '{"action": "get", "id": ' + id + '}', (success, response) => {
+sendPost(apiNamePath, {"action": "get", "id": parseInt(id)}, (success, response) => {
     if(success)
         document.getElementById("name").innerText = response['result']["name"];
     else {
@@ -59,7 +59,7 @@ function valid() {
     if(upName) {
         var text = n.value;
         if(text != "")
-            sendPost(apiNamePath, '{"action": "update", "id": ' + id + ', "name": "' + n.value + '"}', (success, response) => {
+            sendPost(apiNamePath, {"action": "update", "id": parseInt(id), "name": n.value}, (success, response) => {
                 nameDone = true;
                 if(imgDone)
                     window.location = redirectLocation;
@@ -74,7 +74,7 @@ function valid() {
 function remove() {
     var p = prompt('To confirm, type "' + id +'" in the box below');
     if(p == id)
-        sendPost(apiNamePath, '{"action": "remove", "id": ' + id + '}', (success, response) => {
+        sendPost(apiNamePath, {"action": "remove", "id": id}, (success, response) => {
             window.location = redirectLocation;
         });
     else if(p != ""  && p != null)

@@ -24,7 +24,7 @@
     </div>
 </body>
 <script lang="javascript">
-    sendPost("/api/plugins", '{"action": "get", "plugin_id": "jobs"}', (success, response) => {
+    sendPost("/api/plugins", {"action": "get", "plugin_id": "jobs"}, (success, response) => {
         document.getElementById("version").innerText = response['result']['version'];
 
     });

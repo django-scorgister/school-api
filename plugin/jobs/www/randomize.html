@@ -52,13 +52,13 @@
             if(res == null) {
                 window.location = "jobs.html";
             }else {
-                sendPost("/api/attribution", '{"action": "clear_attributions"}', (success, response) => {
+                sendPost("/api/attribution", {"action": "clear_attributions"}, (success, response) => {
                     if(!success) {
                         alert("An error occurred");
                         window.location = "jobs.html";
                     }
-                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, '{"action": "list_random_students"}');
-                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, '{"action": "list_random_students"}');
+                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, {"action": "list_random_students"});
+                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, {"action": "list_random_students"});
                     load("/api/jobs", "jobs", "../images/job", "jobs-selector", customCard);
                 });
             }

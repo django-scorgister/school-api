@@ -32,7 +32,7 @@
         if(sname.value == null || sname.value == "" || sname.value == undefined)
             alert("No name provided");
         else {
-            sendPost("/api/students", '{"action": "add", "name": "' + sname.value + '""}', (success, response) => {
+            sendPost("/api/students", {"action": "add", "name": sname.value}, (success, response) => {
                 window.location  = "students.html";
             });
         } 

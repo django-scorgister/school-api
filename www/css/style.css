@@ -54,7 +54,7 @@ body {
 
 .zoom-card {
     position: relative;
-    z-index: 11;
+    z-index: 9;
     animation: fadeOut 0.4s forwards;
 }
 

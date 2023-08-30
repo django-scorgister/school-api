@@ -15,6 +15,9 @@ function sendPost(url, body, response = function() {}) {
     xhr.onreadystatechange = function() {
         result(xhr, response);
     };
+
+    body = JSON.stringify(body);
+    
     xhr.send(body);
 }
 
@@ -28,6 +31,7 @@ function sendGet(url, response = function() {}) {
     xhr.onreadystatechange = function() {
         result(xhr, response);
     };
+
     xhr.send();
 }
 

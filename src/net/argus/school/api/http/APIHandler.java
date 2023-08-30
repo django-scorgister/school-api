@@ -18,11 +18,16 @@ public abstract class APIHandler extends CardinalHandler {
 	}
 	
 	public String getParameters(HttpExchange exchange) throws IOException {
-		String lines = "";
 		int i = 0;
+		List<Byte> bytesList = new ArrayList<Byte>();
 		while((i = exchange.getRequestBody().read()) != -1)
-			lines += new String(new byte[] {(byte) i}, StandardCharsets.UTF_8);
-		return lines;
+			bytesList.add((byte) i);
+		
+		byte[] bytes = new byte[bytesList.size()];
+		for(int j = 0; j < bytes.length; j++)
+			bytes[j] = bytesList.get(j);
+		
+		return new String(bytes, StandardCharsets.UTF_8);
 	}
 	
 	public String[] getBoundaryParameters(HttpExchange exchange, String boundary) throws IOException {

@@ -74,7 +74,7 @@ function valid() {
 function remove() {
     var p = prompt('To confirm, type "' + id +'" in the box below');
     if(p == id)
-        sendPost(apiNamePath, {"action": "remove", "id": id}, (success, response) => {
+        sendPost(apiNamePath, {"action": "remove", "id": parseInt(id)}, (success, response) => {
             window.location = redirectLocation;
         });
     else if(p != ""  && p != null)

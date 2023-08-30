@@ -41,7 +41,7 @@ function selectChange(event) {
 function displayQuantity(id, uid) {
     document.getElementById("main-material-quantity").innerText = "--";
 
-    sendPost("/api/quantity", {"action": "get", "id": id, "user_id": uid}, (success, response) => {
+    sendPost("/api/quantity", {"action": "get", "id": parseInt(id), "user_id": parseInt(uid)}, (success, response) => {
         if(success)
             document.getElementById("main-material-quantity").innerText = response['result']['quantity'];
     });
@@ -51,7 +51,7 @@ function addOne(event) {
     var id = document.getElementById("main-select-materials").value;
     var uid = getZoomedElement().id;
     
-    sendPost("/api/quantity", {"action": "add", "id": id, "user_id": uid, "quantity": 1}, (success, response) => {
+    sendPost("/api/quantity", {"action": "add", "id": parseInt(id), "user_id": parseInt(uid), "quantity": 1}, (success, response) => {
         if(success) {
             var o = document.getElementById("main-material-quantity");
             o.innerText = parseInt(o.innerText) + 1;
@@ -83,7 +83,7 @@ function addCustom(e) {
             custom.hidden = true;
             e.target.innerText = "Other quantity";
         }
-        sendPost("/api/quantity", {"action": "add", "id": id, "user_id": uid, "quantity": quantity}, (success, response) => {
+        sendPost("/api/quantity", {"action": "add", "id": parseInt(id), "user_id": parseInt(uid), "quantity": parseInt(quantity)}, (success, response) => {
             if(success) {
                 custom.hidden = true;
                 var o = document.getElementById("main-material-quantity");

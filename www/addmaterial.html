@@ -38,7 +38,7 @@
             alert("Negative quantity");
             mquantity.value = mquantity.value*-1;
         }else 
-            sendPost("/api/materials", {"action": "add", "name": mname.value, "base_quantity": mquantity.value}, (success, response) => {
+            sendPost("/api/materials", {"action": "add", "name": mname.value, "base_quantity": parseInt(mquantity.value)}, (success, response) => {
                 window.location  = "materials.html";
             });
    };

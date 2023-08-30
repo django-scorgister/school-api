@@ -34,7 +34,7 @@ function loadMainCardBody(id) {
     document.getElementById("assign").onclick = assign;
     document.getElementById("remove").onclick = remove;
 
-    sendPost("/api/jobs", {"action": "get", "id": id}, (success, response) => {
+    sendPost("/api/jobs", {"action": "get", "id": parseInt(id)}, (success, response) => {
         if(!success)
             return;
         document.getElementById("capability").innerText = response["result"]["capability"];
@@ -65,11 +65,17 @@ function updateAssignmentList() {
             op.innerText = stus[i]["name"];
             sel.appendChild(op);
         }
+
+        if(stus.length == 0) {
+            var o = document.createElement("option");
+            o.innerText = "No students available for this job"
+            sel.appendChild(o);
+        }
     });
 }
 
 function updateAssignment(id) {
-    sendPost("/api/attribution", {"action": "get", "id": id}, (success, response) => {
+    sendPost("/api/attribution", {"action": "get", "id": parseInt(id)}, (success, response) => {
         if(!success)
             return;
 
@@ -81,7 +87,7 @@ function updateAssignment(id) {
         var sel = document.getElementById("select-student-att");
         sel.innerHTML = "";
         for(var i = 0; i < arr.length; i++) {
-            sendPost("/api/students", {"action": "get", "id": arr[i]}, (success, response) => {
+            sendPost("/api/students", {"action": "get", "id": parseInt(arr[i])}, (success, response) => {
                 if(!success)
                     return;
 
@@ -92,10 +98,16 @@ function updateAssignment(id) {
                 document.getElementById("attributed").innerText = att;
 
                 var o = document.createElement("option");
-                o.value = response["result"]["id"];;
+                o.value = response["result"]["id"];
                 o.innerText = response["result"]["name"];
                 sel.appendChild(o);
             });
+        }
+
+        if(arr.length == 0) {
+            var o = document.createElement("option");
+            o.innerText = "No student assigned to this job"
+            sel.appendChild(o);
         }
     });
 }
@@ -111,10 +123,15 @@ function assign(e) {
     }else {
         var id = getZoomedElement().id;
         var uid = sel.value;
-
+       
         uid = parseInt(uid);
 
-        sendPost("/api/attribution", {"action": "add", "id": id, "user_id": uid}, (success, response) => {
+        if(Number.isNaN(uid)) {
+            document.getElementById("error").hidden = false;
+            return;
+        }
+
+        sendPost("/api/attribution", {"action": "add", "id": parseInt(id), "user_id": parseInt(uid)}, (success, response) => {
             if(success) {
                 sel.hidden = true;
                 document.getElementById("error").hidden = true;
@@ -144,7 +161,12 @@ function remove(e) {
 
         uid = parseInt(uid);
 
-        sendPost("/api/attribution", {"action": "remove", "id": id, "user_id": uid}, (success, response) => {
+        if(Number.isNaN(uid)) {
+            document.getElementById("error").hidden = false;
+            return;
+        }
+
+        sendPost("/api/attribution", {"action": "remove", "id": parseInt(id), "user_id": parseInt(uid)}, (success, response) => {
             if(success) {
                 sel.hidden = true;
                 document.getElementById("error").hidden = true;
@@ -213,7 +235,7 @@ function editCapability(e) {
             return;
         }
 
-        sendPost("/api/attribution", {"action": "update_capability", "id": id, "capability": capability}, (success, response) => {
+        sendPost("/api/attribution", {"action": "update_capability", "id": parseInt(id), "capability": parseInt(capability)}, (success, response) => {
             if(success) {
                 var stro = document.createElement("strong");
                 stro.innerText = cap.value;

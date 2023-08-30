@@ -43,7 +43,7 @@ function start(id) {
     d.style.transform = ``;
     d.style.display = "flex";
 
-    sendPost("/api/attribution", {"action": "random", "id": id, "capability": 0}, (success, response) => {
+    sendPost("/api/attribution", {"action": "random", "id": parseInt(id), "capability": 0}, (success, response) => {
         if(typeof(response) == "string") {
             return;
         }
@@ -124,7 +124,7 @@ function approve() {
 
 
     for(var i = 0; i < cont.childElementCount; i++) {
-        sendPost("/api/attribution", {"action": "add", "id": id, "user_id":cont.children[i].getAttribute("value")}, (success, response) => {
+        sendPost("/api/attribution", {"action": "add", "id": parseInt(id), "user_id": parseInt(cont.children[i].getAttribute("value"))}, (success, response) => {
             if(!success) {
                 approveButton.innerText = "Retry";
 
@@ -166,8 +166,8 @@ function next(fast) {
     if(!fast) {
         document.getElementById("card-container").innerHTML = "";
 
-        load("/api/attribution", "students", "../images/student", "card-container", customCard0, '{"action": "list_random_students"}');
-        load("/api/attribution", "students", "../images/student", "card-container", customCard0, '{"action": "list_random_students"}');
+        load("/api/attribution", "students", "../images/student", "card-container", customCardNull, {"action": "list_random_students"});
+        load("/api/attribution", "students", "../images/student", "card-container", customCardNull, {"action": "list_random_students"});
     }
 
 
@@ -198,3 +198,5 @@ function next(fast) {
     d.style.display = "flex";
 
 }
+
+function customCardNull(div) {}

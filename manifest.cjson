@@ -103,7 +103,7 @@
 	},
 	
 	"manifest": {
-		"version": "1.2.0b",
-		"debug": "0.0.0"
+		"version": "1.2.0",
+		"debug": "0.0.1"
 	}
 }

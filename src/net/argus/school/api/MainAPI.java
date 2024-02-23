@@ -34,7 +34,7 @@ import net.argus.web.http.api.APIVersionHandler;
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.2.0b");
+	public static final Version VERSION = new Version("1.2.0");
 	
 	public void main(String[] args) {
 		InitializationSystem.initSystem(args);

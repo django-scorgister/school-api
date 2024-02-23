@@ -1,4 +1,4 @@
-package net.argus.school.api.http.api;
+package net.argus.school.api.handler;
 
 import java.io.IOException;
 
@@ -8,8 +8,9 @@ import net.argus.cjson.CJSON;
 import net.argus.school.api.Material;
 import net.argus.school.api.Materials;
 import net.argus.school.api.Quantities;
-import net.argus.school.api.http.APIHandler;
-import net.argus.school.api.http.pack.PackagePrefab;
+import net.argus.school.api.handler.pack.SchoolPackagePrefab;
+import net.argus.web.http.APIHandler;
+import net.argus.web.http.pack.PackagePrefab;
 
 public class APIMaterialHandler extends APIHandler {
 
@@ -37,7 +38,7 @@ public class APIMaterialHandler extends APIHandler {
 				
 				mat.setBaseQuantity(Quantities.getBaseQuantity(id));
 				
-				send(exchange, PackagePrefab.getMaterialPackage(mat));
+				send(exchange, SchoolPackagePrefab.getMaterialPackage(mat));
 				break;
 		}
 	}

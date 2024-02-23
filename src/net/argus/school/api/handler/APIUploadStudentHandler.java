@@ -1,7 +1,7 @@
-package net.argus.school.api.http.api;
+package net.argus.school.api.handler;
 
 import net.argus.instance.Instance;
-import net.argus.school.api.http.api.formdata.APIFormDataHandler;
+import net.argus.web.http.api.formdata.APIFormDataHandler;
 
 public class APIUploadStudentHandler extends APIFormDataHandler {
 

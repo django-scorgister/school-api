@@ -14,27 +14,27 @@ import net.argus.instance.Program;
 import net.argus.plugin.InitializationPlugin;
 import net.argus.plugin.PluginEvent;
 import net.argus.plugin.PluginRegister;
-import net.argus.school.api.http.APIHandler;
-import net.argus.school.api.http.APIServer;
-import net.argus.school.api.http.FileHandler;
-import net.argus.school.api.http.api.APIExitHandler;
-import net.argus.school.api.http.api.APIMaterialHandler;
-import net.argus.school.api.http.api.APIMaterialsHandler;
-import net.argus.school.api.http.api.APIPluginHandler;
-import net.argus.school.api.http.api.APIQuantityHandler;
-import net.argus.school.api.http.api.APIStudentsHandler;
-import net.argus.school.api.http.api.APIUploadMaterialHandler;
-import net.argus.school.api.http.api.APIUploadStudentHandler;
-import net.argus.school.api.http.api.APIVersionHandler;
+import net.argus.school.api.handler.APIMaterialHandler;
+import net.argus.school.api.handler.APIMaterialsHandler;
+import net.argus.school.api.handler.APIPluginHandler;
+import net.argus.school.api.handler.APIQuantityHandler;
+import net.argus.school.api.handler.APIStudentsHandler;
+import net.argus.school.api.handler.APIUploadMaterialHandler;
+import net.argus.school.api.handler.APIUploadStudentHandler;
 import net.argus.system.InitializationSystem;
 import net.argus.util.Version;
 import net.argus.util.debug.Debug;
 import net.argus.util.debug.Info;
+import net.argus.web.http.APIHandler;
+import net.argus.web.http.APIServer;
+import net.argus.web.http.FileHandler;
+import net.argus.web.http.api.APIExitHandler;
+import net.argus.web.http.api.APIVersionHandler;
 
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.1.1");
+	public static final Version VERSION = new Version("1.2.0b");
 	
 	public void main(String[] args) {
 		InitializationSystem.initSystem(args);

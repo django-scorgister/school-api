@@ -28,7 +28,7 @@
     </div>
     <div id="actions-buttons">
         <button id="approve-button" class="rand-button approve" hidden onclick="approve()">Approve</button>
-        <button id="start" class="rand-button" onclick="launch()">Start</button>
+        <button id="start" class="rand-button" onclick="launch()" hidden>Start</button>
         <button id="next" class="rand-button" onclick="next(false)" hidden>Next</button>
     </div>
 </body>
@@ -36,7 +36,7 @@
 <script text="text/javascript" src="../js/main-card.js"></script>
 <script text="text/javascript" src="js/randomize.js"></script>
 <script text="text/javascript">
-    sendGet("/api/jobs", (success, response) => {
+    sendGet("/api/jobs/jobs", (success, response) => {
         if(response["result"]["jobs"].length == 0) {
             alert("No job registered");
             window.location = "jobs.html";
@@ -48,20 +48,24 @@
                 window.location = "../students.html";
                 return;
             }
-            var res = prompt("Warning: if you continue, the job assignments will be reset");
-            if(res == null) {
-                window.location = "jobs.html";
-            }else {
-                sendPost("/api/attribution", {"action": "clear_attributions"}, (success, response) => {
-                    if(!success) {
-                        alert("An error occurred");
-                        window.location = "jobs.html";
-                    }
-                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, {"action": "list_random_students"});
-                    load("/api/attribution", "students", "../images/student", "card-container", customCard0, {"action": "list_random_students"});
-                    load("/api/jobs", "jobs", "../images/job", "jobs-selector", customCard);
-                });
-            }
+
+            loadAttribution(() => {
+                var res = prompt("Warning: if you continue, the job assignments will be reset");
+                if(res == null) {
+                    window.location = "jobs.html";
+                }else {
+                    sendPost("/api/jobs/attribution", {"action": "clear_attributions"}, (success, response) => {
+                        if(!success) {
+                            alert("An error occurred");
+                            window.location = "jobs.html";
+                        }
+                        load("/api/jobs/attribution", "students", "../images/student", "card-container", customCard0, {"action": "list_random_students"});
+                        load("/api/jobs/attribution", "students", "../images/student", "card-container", customCard0, {"action": "list_random_students"});
+                        load("/api/jobs/jobs", "jobs", "../images/job", "jobs-selector", customCard, {"action": "random_list"});
+
+                    });
+                }
+            });
         });
     });
 </script>

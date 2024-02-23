@@ -1,6 +1,5 @@
-package net.argus.school.api.http.pack;
+package net.argus.school.api.handler.pack;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,31 +14,10 @@ import net.argus.plugin.annotation.PluginInfo;
 import net.argus.school.api.Material;
 import net.argus.school.api.Materials;
 import net.argus.school.api.Students;
+import net.argus.web.http.pack.APIPackage;
+import net.argus.web.http.pack.PackageBuilder;
 
-public class PackagePrefab {
-	
-	public static APIPackage get404Package() {
-		return PackageBuilder.getErrorPackage("not found", "404 Not Found", HttpURLConnection.HTTP_NOT_FOUND);
-	}
-	
-	public static APIPackage get405Package() {
-		return PackageBuilder.getErrorPackage("Method Not Allowed", "405 method not allowed", HttpURLConnection.HTTP_BAD_METHOD);
-	}
-	
-	public static APIPackage get500Package() {
-		return PackageBuilder.getErrorPackage("Internal Server Error", "500 internal server error", HttpURLConnection.HTTP_INTERNAL_ERROR);
-	}
-	
-	public static APIPackage getEmptyPackage() {
-		return PackageBuilder.getSucessPackage(new CJSONObject());
-	}
-	
-	public static APIPackage getVersionPackage(String version) {
-		CJSONObject obj = new CJSONObject();
-		
-		obj.addItem("version", new CJSONString(version));
-		return PackageBuilder.getSucessPackage(obj);
-	}
+public class SchoolPackagePrefab {
 	
 	public static APIPackage getPluginsPackage() {
 		CJSONObject obj = new CJSONObject();

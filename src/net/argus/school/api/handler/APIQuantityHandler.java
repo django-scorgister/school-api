@@ -1,4 +1,4 @@
-package net.argus.school.api.http.api;
+package net.argus.school.api.handler;
 
 import java.io.IOException;
 
@@ -8,8 +8,9 @@ import net.argus.cjson.CJSON;
 import net.argus.cjson.value.CJSONObject;
 import net.argus.cjson.value.CJSONValue;
 import net.argus.school.api.Quantities;
-import net.argus.school.api.http.APIHandler;
-import net.argus.school.api.http.pack.PackagePrefab;
+import net.argus.school.api.handler.pack.SchoolPackagePrefab;
+import net.argus.web.http.APIHandler;
+import net.argus.web.http.pack.PackagePrefab;
 
 public class APIQuantityHandler extends APIHandler {
 
@@ -37,7 +38,7 @@ public class APIQuantityHandler extends APIHandler {
 					break;
 				}
 				
-				send(exchange, PackagePrefab.getQuantityPackage(q));
+				send(exchange, SchoolPackagePrefab.getQuantityPackage(q));
 				break;
 				
 			case "get_quantity":
@@ -45,7 +46,7 @@ public class APIQuantityHandler extends APIHandler {
 				q = Quantities.getQuantity(id);
 
 				if(q >= 0)
-					send(exchange, PackagePrefab.getQuantityPackage(q));
+					send(exchange, SchoolPackagePrefab.getQuantityPackage(q));
 				else
 					send500(exchange);
 				
@@ -60,7 +61,7 @@ public class APIQuantityHandler extends APIHandler {
 				}
 				
 				int base = obj.getInt("base");
-				send(exchange, PackagePrefab.getQuantityPackage(base));
+				send(exchange, SchoolPackagePrefab.getQuantityPackage(base));
 				break;
 				
 			case "add":

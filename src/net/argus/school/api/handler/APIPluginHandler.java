@@ -1,4 +1,4 @@
-package net.argus.school.api.http.api;
+package net.argus.school.api.handler;
 
 import java.io.IOException;
 
@@ -6,8 +6,8 @@ import com.sun.net.httpserver.HttpExchange;
 
 import net.argus.cjson.CJSON;
 import net.argus.plugin.PluginRegister;
-import net.argus.school.api.http.APIHandler;
-import net.argus.school.api.http.pack.PackagePrefab;
+import net.argus.school.api.handler.pack.SchoolPackagePrefab;
+import net.argus.web.http.APIHandler;
 
 public class APIPluginHandler extends APIHandler {
 
@@ -17,7 +17,7 @@ public class APIPluginHandler extends APIHandler {
 
 	@Override
 	public void doGet(HttpExchange exchange) throws IOException {
-		send(exchange, PackagePrefab.getPluginsPackage());
+		send(exchange, SchoolPackagePrefab.getPluginsPackage());
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class APIPluginHandler extends APIHandler {
 				String pId = parameters.getString("plugin_id");
 				for(int i = 0; i < PluginRegister.getInfos().size(); i++) {
 					if(PluginRegister.getInfo(i).pluginId().equals(pId)) {
-						send(exchange, PackagePrefab.getPluginPackage(PluginRegister.getPlugin(i)));
+						send(exchange, SchoolPackagePrefab.getPluginPackage(PluginRegister.getPlugin(i)));
 						break;
 					}
 				}

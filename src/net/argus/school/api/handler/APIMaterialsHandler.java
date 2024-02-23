@@ -1,4 +1,4 @@
-package net.argus.school.api.http.api;
+package net.argus.school.api.handler;
 
 import java.io.IOException;
 
@@ -7,8 +7,8 @@ import com.sun.net.httpserver.HttpExchange;
 import net.argus.cjson.CJSON;
 import net.argus.school.api.Materials;
 import net.argus.school.api.Quantities;
-import net.argus.school.api.http.APIHandler;
-import net.argus.school.api.http.pack.PackagePrefab;
+import net.argus.school.api.handler.pack.SchoolPackagePrefab;
+import net.argus.web.http.APIHandler;
 
 public class APIMaterialsHandler extends APIHandler {
 
@@ -18,7 +18,7 @@ public class APIMaterialsHandler extends APIHandler {
 
 	@Override
 	public void doGet(HttpExchange exchange) throws IOException {
-		send(exchange, PackagePrefab.getMaterialsPackage());
+		send(exchange, SchoolPackagePrefab.getMaterialsPackage());
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class APIMaterialsHandler extends APIHandler {
 		switch(parameters.getString("action").toLowerCase()) {
 			case "get":
 				String name = Materials.getMaterial(parameters.getInt("id")).getName();
-				send(exchange, PackagePrefab.getMaterialPackage(name));
+				send(exchange, SchoolPackagePrefab.getMaterialPackage(name));
 				break;
 				
 			case "add":

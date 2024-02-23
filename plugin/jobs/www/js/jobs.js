@@ -1,4 +1,4 @@
-load("/api/jobs", "jobs", "../images/job");
+load("/api/jobs/jobs", "jobs", "../images/job");
 
 function loadMainCardBody(id) {
 
@@ -34,7 +34,7 @@ function loadMainCardBody(id) {
     document.getElementById("assign").onclick = assign;
     document.getElementById("remove").onclick = remove;
 
-    sendPost("/api/jobs", {"action": "get", "id": parseInt(id)}, (success, response) => {
+    sendPost("/api/jobs/jobs", {"action": "get", "id": parseInt(id)}, (success, response) => {
         if(!success)
             return;
         document.getElementById("capability").innerText = response["result"]["capability"];
@@ -49,7 +49,7 @@ function loadMainCardBody(id) {
 function updateAssignmentList() {
     var sel = document.getElementById("select-student").innerHTML = "";
 
-    sendPost("/api/attribution", {"action": "list_students"}, (success, response) => {
+    sendPost("/api/jobs/attribution", {"action": "list_students"}, (success, response) => {
         sel = document.getElementById("select-student");
         if(!success) {
             var op = document.createElement("option");
@@ -75,7 +75,7 @@ function updateAssignmentList() {
 }
 
 function updateAssignment(id) {
-    sendPost("/api/attribution", {"action": "get", "id": parseInt(id)}, (success, response) => {
+    sendPost("/api/jobs/attribution", {"action": "get", "id": parseInt(id)}, (success, response) => {
         if(!success)
             return;
 
@@ -131,7 +131,7 @@ function assign(e) {
             return;
         }
 
-        sendPost("/api/attribution", {"action": "add", "id": parseInt(id), "user_id": parseInt(uid)}, (success, response) => {
+        sendPost("/api/jobs/attribution", {"action": "add", "id": parseInt(id), "user_id": parseInt(uid)}, (success, response) => {
             if(success) {
                 sel.hidden = true;
                 document.getElementById("error").hidden = true;
@@ -166,7 +166,7 @@ function remove(e) {
             return;
         }
 
-        sendPost("/api/attribution", {"action": "remove", "id": parseInt(id), "user_id": parseInt(uid)}, (success, response) => {
+        sendPost("/api/jobs/attribution", {"action": "remove", "id": parseInt(id), "user_id": parseInt(uid)}, (success, response) => {
             if(success) {
                 sel.hidden = true;
                 document.getElementById("error").hidden = true;
@@ -235,7 +235,7 @@ function editCapability(e) {
             return;
         }
 
-        sendPost("/api/attribution", {"action": "update_capability", "id": parseInt(id), "capability": parseInt(capability)}, (success, response) => {
+        sendPost("/api/jobs/attribution", {"action": "update_capability", "id": parseInt(id), "capability": parseInt(capability)}, (success, response) => {
             if(success) {
                 var stro = document.createElement("strong");
                 stro.innerText = cap.value;

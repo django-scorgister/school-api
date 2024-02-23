@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="libs/Cardinal-Plugin.jar"/>
 	<classpathentry kind="lib" path="libs/Launcher.jar"/>
 	<classpathentry kind="lib" path="/SchoolJobsPlugin/bin"/>
+	<classpathentry kind="lib" path="libs/Cardinal-Web.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

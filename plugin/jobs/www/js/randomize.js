@@ -3,6 +3,30 @@ const startButton = document.getElementById("start");
 const approveButton = document.getElementById("approve-button");
 const nextButton = document.getElementById("next");
 
+var attributionList;
+
+function loadAttribution(callback) {
+    document.getElementById("start").hidden = true;
+
+    sendPost("/api/jobs/attribution", {"action": "randomize"}, (success, result) => {
+        if(typeof(response) == "string") {
+            return;
+        }
+        if(!success)
+            return;
+
+        if(result["result"]["attributions"] == undefined) {
+            alert("The number of students and the total number of places available must be equal");
+            window.location = "jobs.html";
+            return;
+        }
+
+        attributionList = result["result"]["attributions"];
+        document.getElementById("start").hidden = false;
+        callback();
+    });
+}
+
 function onClickCard(id) {}
 
 function anim(id, cap) {
@@ -17,8 +41,6 @@ function anim(id, cap) {
         d.style.display = "none";
         resultCard.style.display = "flex";
 
-        startButton.hidden = false;
-        startButton.innerText = "Start over";
         approveButton.innerText = "Approve";
 
         if(cap == 0) {
@@ -43,45 +65,37 @@ function start(id) {
     d.style.transform = ``;
     d.style.display = "flex";
 
-    sendPost("/api/attribution", {"action": "random", "id": parseInt(id), "capability": 0}, (success, response) => {
-        if(typeof(response) == "string") {
-            return;
-        }
-        
-        if(!success)
-            return;
-    
-        const cap = response["result"]["capability"];
-        for(var i = 0; i < cap; i++) {
+    console.log(attributionList[id].length);
+    const cap = attributionList[id].length;
+    for(var i = 0; i < cap; i++) {
 
-            const card = document.getElementById(response["result"]["random"][i]["id"]).cloneNode(true);
-            card.setAttribute("value", card.getAttribute("id"));
+        const card = document.getElementById(attributionList[id][i]).cloneNode(true);
+        card.setAttribute("value", card.getAttribute("id"));
 
-            card.setAttribute("id", card.getAttribute("id") + "-card");
-            card.setAttribute("class", "card basic result");
+        card.setAttribute("id", card.getAttribute("id") + "-card");
+        card.setAttribute("class", "card basic result");
             
-            resultCard.appendChild(card);
-        }
+        resultCard.appendChild(card);
+    }
 
-        if(cap <= 0) {
-            const card = document.createElement("div");
-            card.setAttribute("class", "card basic result");
+    if(cap <= 0) {
+        const card = document.createElement("div");
+        card.setAttribute("class", "card basic result");
 
-            const imgForbidden = document.createElement("img");
-            imgForbidden.setAttribute("class", "img-card");
-            imgForbidden.src = "../images/job/forbidden.png";
-            card.appendChild(imgForbidden);
+        const imgForbidden = document.createElement("img");
+        imgForbidden.setAttribute("class", "img-card");
+        imgForbidden.src = "../images/job/forbidden.png";
+        card.appendChild(imgForbidden);
 
-            const testInfo = document.createElement("h3");
-            testInfo.setAttribute("class", "error")
-            testInfo.innerText = "No students available for this job !";
-            card.appendChild(testInfo);
+        const testInfo = document.createElement("h3");
+        testInfo.setAttribute("class", "error")
+        testInfo.innerText = "No students available for this job !";
+        card.appendChild(testInfo);
 
-            resultCard.appendChild(card);
+        resultCard.appendChild(card);
 
-        }
-       anim(id, cap);
-    });
+    }
+    anim(id, cap);
    
 }
 
@@ -124,7 +138,7 @@ function approve() {
 
 
     for(var i = 0; i < cont.childElementCount; i++) {
-        sendPost("/api/attribution", {"action": "add", "id": parseInt(id), "user_id": parseInt(cont.children[i].getAttribute("value"))}, (success, response) => {
+        sendPost("/api/jobs/attribution", {"action": "add", "id": parseInt(id), "user_id": parseInt(cont.children[i].getAttribute("value"))}, (success, response) => {
             if(!success) {
                 approveButton.innerText = "Retry";
 
@@ -159,15 +173,14 @@ function setVisibleNextButton() {
     }
 
     nextButton.hidden = false;
-
 }
 
 function next(fast) {
     if(!fast) {
         document.getElementById("card-container").innerHTML = "";
 
-        load("/api/attribution", "students", "../images/student", "card-container", customCardNull, {"action": "list_random_students"});
-        load("/api/attribution", "students", "../images/student", "card-container", customCardNull, {"action": "list_random_students"});
+        load("/api/jobs/attribution", "students", "../images/student", "card-container", customCardNull, {"action": "list_random_students"});
+        load("/api/jobs/attribution", "students", "../images/student", "card-container", customCardNull, {"action": "list_random_students"});
     }
 
 

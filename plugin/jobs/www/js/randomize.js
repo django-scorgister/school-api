@@ -41,7 +41,7 @@ function anim(id, cap) {
         d.style.display = "none";
         resultCard.style.display = "flex";
 
-        approveButton.innerText = "Approve";
+        approveButton.innerText = "Assign";
 
         if(cap == 0) {
             setVisibleNextButton();
@@ -89,7 +89,7 @@ function start(id) {
 
         const testInfo = document.createElement("h3");
         testInfo.setAttribute("class", "error")
-        testInfo.innerText = "No students available for this job !";
+        testInfo.innerText = "No student available for this job !";
         card.appendChild(testInfo);
 
         resultCard.appendChild(card);
@@ -141,7 +141,6 @@ function approve() {
         sendPost("/api/jobs/attribution", {"action": "add", "id": parseInt(id), "user_id": parseInt(cont.children[i].getAttribute("value"))}, (success, response) => {
             if(!success) {
                 approveButton.innerText = "Retry";
-
                 return;
             }
 
@@ -151,7 +150,7 @@ function approve() {
             count++;
             if(count == cont.childElementCount) {
                 approveButton.hidden = true;
-                approveButton.innerText = "Approve";
+                approveButton.innerText = "Assign";
                 startButton.hidden = true;
                 setVisibleNextButton();
                 count = 0;
@@ -166,7 +165,7 @@ function getCurrentJobId() {
 
 function setVisibleNextButton() {
     if(document.getElementById("jobs-selector").childElementCount < 3) {
-        nextButton.innerText = "Finish";
+        nextButton.innerText = "Return to jobs menu";
         nextButton.onclick = (e) => {
             window.location = "jobs.html";
         }
@@ -197,7 +196,7 @@ function next(fast) {
     jobsSelector.removeChild(jobsSelector.children[2]);
 
     startButton.innerText = "Start";
-    approveButton.innerText = "Approve";
+    approveButton.innerText = "Assign";
 
     nextButton.hidden = true;
     approveButton.hidden = true;

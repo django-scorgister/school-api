@@ -104,6 +104,6 @@
 	
 	"manifest": {
 		"version": "1.2.0",
-		"debug": "0.0.1"
+		"debug": "0.1.0"
 	}
 }

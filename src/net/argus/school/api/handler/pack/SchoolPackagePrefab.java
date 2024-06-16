@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.argus.cjson.value.CJSONArray;
+import net.argus.cjson.value.CJSONBoolean;
 import net.argus.cjson.value.CJSONInteger;
 import net.argus.cjson.value.CJSONObject;
 import net.argus.cjson.value.CJSONString;
@@ -14,6 +15,7 @@ import net.argus.plugin.annotation.PluginInfo;
 import net.argus.school.api.Material;
 import net.argus.school.api.Materials;
 import net.argus.school.api.Students;
+import net.argus.school.api.event.SchoolResetEntry;
 import net.argus.web.http.pack.APIPackage;
 import net.argus.web.http.pack.PackageBuilder;
 
@@ -112,6 +114,28 @@ public class SchoolPackagePrefab {
 		CJSONObject obj = new CJSONObject();
 		
 		obj.addItem("name", new CJSONString(name));
+		return PackageBuilder.getSucessPackage(obj);
+	}
+	
+	public static APIPackage getResetRequestPackage(List<List<SchoolResetEntry>> resetEntries) {
+		CJSONObject obj = new CJSONObject();
+		
+		List<CJSONValue> values = new ArrayList<CJSONValue>();
+		
+		for(List<SchoolResetEntry> listEntry : resetEntries) {
+			for(SchoolResetEntry entry : listEntry) {
+				CJSONObject entryVal = new CJSONObject();
+				
+				entryVal.addItem("id", new CJSONString(entry.getId()));
+				entryVal.addItem("name", new CJSONString(entry.getName()));
+				entryVal.addItem("description", new CJSONString(entry.getDescription()));
+				entryVal.addItem("default-value", new CJSONBoolean(entry.getDefaultValue()));
+				
+				values.add(entryVal);
+			}
+		}
+		
+		obj.addItem("entries", new CJSONArray(values));
 		return PackageBuilder.getSucessPackage(obj);
 	}
 

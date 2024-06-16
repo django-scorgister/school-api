@@ -36,5 +36,9 @@ public class IdRegister {
 	public boolean removeId(int id) {
 		return ids.remove(new Integer(id));
 	}
+	
+	public List<Integer> getIds() {
+		return ids;
+	}
 
 }

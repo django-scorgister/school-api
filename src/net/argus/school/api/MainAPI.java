@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import com.sun.net.httpserver.HttpExchange;
 
@@ -14,10 +15,15 @@ import net.argus.instance.Program;
 import net.argus.plugin.InitializationPlugin;
 import net.argus.plugin.PluginEvent;
 import net.argus.plugin.PluginRegister;
+import net.argus.school.api.event.EventSchool;
+import net.argus.school.api.event.SchoolEvent;
+import net.argus.school.api.event.SchoolListener;
+import net.argus.school.api.event.SchoolResetEntry;
 import net.argus.school.api.handler.APIMaterialHandler;
 import net.argus.school.api.handler.APIMaterialsHandler;
 import net.argus.school.api.handler.APIPluginHandler;
 import net.argus.school.api.handler.APIQuantityHandler;
+import net.argus.school.api.handler.APIResetHandler;
 import net.argus.school.api.handler.APIStudentsHandler;
 import net.argus.school.api.handler.APIUploadMaterialHandler;
 import net.argus.school.api.handler.APIUploadStudentHandler;
@@ -34,7 +40,9 @@ import net.argus.web.http.api.APIVersionHandler;
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.2.0");
+	public static final Version VERSION = new Version("1.2.1");
+	
+	private static final EventSchool EVENT = new EventSchool();
 	
 	public void main(String[] args) {
 		InitializationSystem.initSystem(args);
@@ -49,6 +57,9 @@ public class MainAPI extends CardinalProgram {
 			srv.addHandle(new APIExitHandler());
 			srv.addHandle(new APIUploadStudentHandler());
 			srv.addHandle(new APIUploadMaterialHandler());
+			
+			srv.addHandle(new APIResetHandler());
+
 			
 			srv.addHandle(new APIStudentsHandler());
 			srv.addHandle(new APIMaterialsHandler());
@@ -70,6 +81,8 @@ public class MainAPI extends CardinalProgram {
 			srv.addHandle(new FileHandler("/school/", Instance.SYSTEM.getRootPath() + "/www/"));
 			srv.addHandle(new FileHandler("", Instance.SYSTEM.getRootPath() + "/res/"));
 			
+			addSchoolListener(new BasicSchoolListener());
+			
 			PluginRegister.init(new PluginEvent(srv));
 			
 			
@@ -86,7 +99,18 @@ public class MainAPI extends CardinalProgram {
 		}catch(IOException | URISyntaxException e) {e.printStackTrace();}
 		
 		PluginRegister.postInit(new PluginEvent(this));
-
+	}
+	
+	public static void addSchoolListener(SchoolListener listener) {
+		EVENT.addListener(listener);
+	}
+	
+	public static void invokeEvent(int event, SchoolEvent e) {
+		EVENT.invokeEvent(event, e);
+	}
+	
+	public static List<List<SchoolResetEntry>> invokeResetRequestEvent(SchoolEvent e) {
+		return EVENT.invokeResetRequestEvent(e);
 	}
 
 }

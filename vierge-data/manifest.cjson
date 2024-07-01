@@ -1,109 +1,83 @@
 {
-	//download object
-	"download": {
-		//download url
-		"url": "https://argus.alwaysdata.net/common/files/school/basic/",
-		"files": {
-			//common files
-			"common": [
-				//html
-				"www/404.html",
-				"www/addmaterial.html",
-				"www/addstudent.html",
-				"www/custom.html",
-				"www/custommat.html",
-				"www/index.html",
-				"www/materials.html",
-				"www/students.html",
-
-				//css
-				"www/css/add.css",
-				"www/css/custom.css",
-				"www/css/index.css",
-				"www/css/main-card.css",
-				"www/css/style.css",
-
-				//js
-				"www/js/cardinal.js",
-				"www/js/custom.js",
-				"www/js/loader.js",
-				"www/js/main-card.js",
-				"www/js/materials.js",
-				"www/js/students.js",
-				"www/js/upload.js",
-
-				//images
-				"www/images/material/default.png",
-				"www/images/student/default.png",
-				"www/images/job/default.png",
-				"www/images/job/forbidden.png",
-				"www/images/add.png",
-				"www/images/icon.png",
-				"www/images/off.png",
-
-				//plugin
-				"plugin/jobs.plug",
-
-
-				//plugin res
-				"plugin/jobs/www/404.html",
-				"plugin/jobs/www/addjob.html",
-				"plugin/jobs/www/customjob.html",
-				"plugin/jobs/www/index.html",
-				"plugin/jobs/www/jobs.html",
-				"plugin/jobs/www/randomize.html",
-				"plugin/jobs/www/css/randomize.css",
-				"plugin/jobs/www/js/jobs.js",
-				"plugin/jobs/www/js/randomize.js",
-				
-				//resource
-				"res/404.html",
-				"res/favicon.ico",
-
-				//manifest
-				"manifest.cjson",
-
-				//jar file
-				"Update.jar",
-				"School.jar"
-			],
-			//windows files
-			"windows": [],
-
-			//linux files
-			"linux": [],
-
-			//optional
-			"optional": [
-				"materials.cjson",
-				"quantities.cjson",
-				"students.cjson",
-
-				"plugin/jobs/jobs.cjson",
-				"plugin/jobs/attribution.cjson"
-			]
-		}
-	},
-
-	"shortcut": {
-		"name": "School",
-		"target": "School.jar",
-		"description": "",
-		"icon": "res/favicon.ico"
-	},
-
-	"path": {
-		"default": {
-			"location": "",
-			"folder": ""
-		},
-		"required": {
-			"folder": "school"
-		}
-	},
-	
-	"manifest": {
-		"version": "1.2.1",
-		"debug": "0.0.0"
-	}
+    "download": {
+        "url": "https://argus.alwaysdata.net/common/files/school/basic/",
+        "files": {
+            "common": [
+                "School.jar",
+                "res/favicon.ico",
+                "res/404.html",
+                "manifest.cjson",
+                "Update.jar",
+                "plugin/jobs.plug",
+                "plugin/jobs/www/jobs.html",
+                "plugin/jobs/www/index.html",
+                "plugin/jobs/www/css/randomize.css",
+                "plugin/jobs/www/js/randomize.js",
+                "plugin/jobs/www/js/jobs.js",
+                "plugin/jobs/www/404.html",
+                "plugin/jobs/www/customjob.html",
+                "plugin/jobs/www/randomize.html",
+                "plugin/jobs/www/addjob.html",
+                "www/reset.html",
+                "www/students.html",
+                "www/index.html",
+                "www/css/add.css",
+                "www/css/custom.css",
+                "www/css/index.css",
+                "www/css/style.css",
+                "www/css/main-card.css",
+                "www/images/add.png",
+                "www/images/icon.png",
+                "www/images/off.png",
+                "www/images/student/default.png",
+                "www/images/job/forbidden.png",
+                "www/images/job/default.png",
+                "www/images/material/default.png",
+                "www/js/reset.js",
+                "www/js/materials.js",
+                "www/js/main-card.js",
+                "www/js/custom.js",
+                "www/js/upload.js",
+                "www/js/students.js",
+                "www/js/cardinal.js",
+                "www/js/loader.js",
+                "www/custom.html",
+                "www/materials.html",
+                "www/404.html",
+                "www/custommat.html",
+                "www/addstudent.html",
+                "www/addmaterial.html"
+            ],
+            "windows": [],
+            "linux": [],
+            "osx": [],
+            "optional": [
+                "students.cjson",
+                "quantities.cjson",
+                "materials.cjson",
+                "plugin/jobs/jobs.cjson",
+                "plugin/jobs/attribution.cjson"
+            ]
+        },
+        "shortcut": {
+            "name": "School",
+            "target": "School.jar",
+            "description": "",
+            "icon": "res/favicon.ico"
+        },
+        "path": {
+            "default": {
+                "location": "",
+                "folder": ""
+            },
+            "required": {
+                "folder": "school"
+            }
+        }
+        
+    },
+    "manifest": {
+        "version": "1.2.1rc",
+        "debug": "0.0.1"
+    }
 }

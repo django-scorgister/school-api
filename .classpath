@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
 		<accessrules>
 			<accessrule kind="accessible" pattern="com/sun/net/**"/>
 		</accessrules>
@@ -9,7 +12,7 @@
 	<classpathentry kind="lib" path="libs/Cardinal-System.jar"/>
 	<classpathentry kind="lib" path="libs/Cardinal-Plugin.jar"/>
 	<classpathentry kind="lib" path="libs/Launcher.jar"/>
-	<classpathentry kind="lib" path="libs/Cardinal-Web.jar"/>
-	<classpathentry kind="lib" path="/school-jobs-plugin/bin"/>
+	<classpathentry kind="lib" path="/Cardinal-Web/bin" sourcepath="D:/Django/Documents/Java/Cardinal/Cardinal-Web/src"/>
+	<classpathentry kind="lib" path="/Cardinal-Analytics/bin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

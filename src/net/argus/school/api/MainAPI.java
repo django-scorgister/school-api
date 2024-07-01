@@ -9,12 +9,16 @@ import java.util.List;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import net.argus.analytics.client.AnalyticsModule;
+import net.argus.analytics.client.AnalyticsSender;
+import net.argus.analytics.client.DefaultAnalyticsSender;
 import net.argus.instance.CardinalProgram;
 import net.argus.instance.Instance;
 import net.argus.instance.Program;
 import net.argus.plugin.InitializationPlugin;
 import net.argus.plugin.PluginEvent;
 import net.argus.plugin.PluginRegister;
+import net.argus.school.api.analytics.SchoolAnalyticsNode;
 import net.argus.school.api.event.EventSchool;
 import net.argus.school.api.event.SchoolEvent;
 import net.argus.school.api.event.SchoolListener;
@@ -40,32 +44,41 @@ import net.argus.web.http.api.APIVersionHandler;
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.2.1");
+	public static final Version VERSION = new Version("1.2.2b");
 	
 	private static final EventSchool EVENT = new EventSchool();
+
+	
+	public static final AnalyticsModule ANALYTICS_MODULE = new AnalyticsModule("school-analytics", AnalyticsModule.DEFAULT_INTERVAL);
+	public static final AnalyticsSender ANALYTICS_SENDER = new DefaultAnalyticsSender(ANALYTICS_MODULE, "localhost");
+	
+	private static APIServer serveur;
+	private static boolean alreadyStarted;
 	
 	public void main(String[] args) {
 		InitializationSystem.initSystem(args);
 		InitializationPlugin.register();
+		
+		ANALYTICS_MODULE.addNode(new SchoolAnalyticsNode());
+		
 		try {
 			PluginRegister.preInit(new PluginEvent(this));
 
-			APIServer srv = new APIServer();			
+			serveur = new APIServer();			
 			
-			srv.addHandle(new APIVersionHandler());
-			srv.addHandle(new APIPluginHandler());
-			srv.addHandle(new APIExitHandler());
-			srv.addHandle(new APIUploadStudentHandler());
-			srv.addHandle(new APIUploadMaterialHandler());
+			serveur.addHandle(new APIVersionHandler());
+			serveur.addHandle(new APIPluginHandler());
+			serveur.addHandle(new APIExitHandler());
+			serveur.addHandle(new APIUploadStudentHandler());
+			serveur.addHandle(new APIUploadMaterialHandler());
 			
-			srv.addHandle(new APIResetHandler());
-
+			serveur.addHandle(new APIResetHandler());
 			
-			srv.addHandle(new APIStudentsHandler());
-			srv.addHandle(new APIMaterialsHandler());
-			srv.addHandle(new APIMaterialHandler());
-			srv.addHandle(new APIQuantityHandler());
-			srv.addHandle(new APIHandler("") {
+			serveur.addHandle(new APIStudentsHandler());
+			serveur.addHandle(new APIMaterialsHandler());
+			serveur.addHandle(new APIMaterialHandler());
+			serveur.addHandle(new APIQuantityHandler());
+			serveur.addHandle(new APIHandler("") {
 	
 				@Override
 				public void doGet(HttpExchange exchange) throws IOException {
@@ -78,17 +91,18 @@ public class MainAPI extends CardinalProgram {
 				}
 			});
 
-			srv.addHandle(new FileHandler("/school/", Instance.SYSTEM.getRootPath() + "/www/"));
-			srv.addHandle(new FileHandler("", Instance.SYSTEM.getRootPath() + "/res/"));
+			serveur.addHandle(new FileHandler("/school/", Instance.SYSTEM.getRootPath() + "/www/"));
+			serveur.addHandle(new FileHandler("", Instance.SYSTEM.getRootPath() + "/res/"));
 			
 			addSchoolListener(new BasicSchoolListener());
 			
-			PluginRegister.init(new PluginEvent(srv));
+			PluginRegister.init(new PluginEvent(serveur));
 			
 			
-			srv.start();
+			serveur.start();
 		} catch(IOException e) {
 			if(e instanceof BindException) {
+				alreadyStarted = true;
 				Debug.log("Server already start", Info.ERROR);
 			}else
 				e.printStackTrace();
@@ -99,6 +113,9 @@ public class MainAPI extends CardinalProgram {
 		}catch(IOException | URISyntaxException e) {e.printStackTrace();}
 		
 		PluginRegister.postInit(new PluginEvent(this));
+
+		ANALYTICS_MODULE.start();
+		ANALYTICS_SENDER.startSenderLoop();
 	}
 	
 	public static void addSchoolListener(SchoolListener listener) {
@@ -111,6 +128,14 @@ public class MainAPI extends CardinalProgram {
 	
 	public static List<List<SchoolResetEntry>> invokeResetRequestEvent(SchoolEvent e) {
 		return EVENT.invokeResetRequestEvent(e);
+	}
+	
+	public static boolean isAlreadyStarted() {
+		return alreadyStarted;
+	}
+	
+	public static APIServer getServeur() {
+		return serveur;
 	}
 
 }

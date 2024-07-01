@@ -3,8 +3,10 @@ package net.argus.school.api;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.BindException;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -50,7 +52,7 @@ public class MainAPI extends CardinalProgram {
 
 	
 	public static final AnalyticsModule ANALYTICS_MODULE = new AnalyticsModule("school-analytics", AnalyticsModule.DEFAULT_INTERVAL);
-	public static final AnalyticsSender ANALYTICS_SENDER = new DefaultAnalyticsSender(ANALYTICS_MODULE, "localhost");
+	public static final AnalyticsSender ANALYTICS_SENDER = new DefaultAnalyticsSender(ANALYTICS_MODULE, "analytics.scorgister.net");
 	
 	private static APIServer serveur;
 	private static boolean alreadyStarted;

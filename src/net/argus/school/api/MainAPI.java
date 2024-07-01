@@ -3,10 +3,8 @@ package net.argus.school.api;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.BindException;
-import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.UnknownHostException;
 import java.util.List;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -46,7 +44,7 @@ import net.argus.web.http.api.APIVersionHandler;
 @Program(instanceName = "school-main")
 public class MainAPI extends CardinalProgram {
 	
-	public static final Version VERSION = new Version("1.2.2b");
+	public static final Version VERSION = new Version("1.2.1");
 	
 	private static final EventSchool EVENT = new EventSchool();
 
